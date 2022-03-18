@@ -4,7 +4,7 @@
 point_3D_t makePoint3D(double x, double y, double z);
 point_3D_t makePoint3D();
 
-void set_point_3D(point_3D_t &point, double x, double y, double z)
+int set_point_3D(point_3D_t &point, double x, double y, double z)
 {
     point.x = x;
     point.y = y;

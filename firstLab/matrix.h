@@ -1,18 +1,19 @@
-#ifndef MATRIX_H
-#define MATRIX_H
+#ifndef MATRIX_ANOTHER_H
+#define MATRIX_ANOTHER_H
 
 #define MATRIX_SIZE_ERROR 1
 #define MATRIX_INPUT_ERROR 2
 
 #include "errors.h"
-#include "point_array.h"
 
-typedef struct
+struct matrix
 {
     double** matrix_elements;
     int rows;
     int columns;
-} matrix_t;
+};
+
+typedef struct matrix matrix_t;
 
 // arifmetic operations
 int add_to_matrix(matrix_t &dst, const matrix_t &src);

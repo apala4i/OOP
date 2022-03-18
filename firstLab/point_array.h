@@ -7,7 +7,7 @@
 
 struct arr
 {
-   point_3D_t *array;
+   struct point_3D *array;
    int size;
 };
 
