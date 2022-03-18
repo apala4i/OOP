@@ -1,21 +1,22 @@
-#ifndef POINT3D_H
-#define POINT3D_H
+#ifndef POINT_3D_H
+#define POINT_3D_H
 
 #include "matrix.h"
 
-typedef struct Point3D Point3D;
-struct Point3D
+struct point_3D
 {
     double x = 0;
     double y = 0;
     double z = 0;
 };
 
-Point3D makePoint3D(double x, double y, double z);
-Point3D makePoint3D();
-void setPoint3D(Point3D &aPoint, double x, double y, double z);
-void addPoint3D(Point3D &aPoint, double x, double y, double z);
-void mulPoint3D(Point3D &aPoint, double x, double y, double z);
-void mulPoint3DMatrix(Point3D &aPoint, Matrix aMatrix);
+typedef struct point_3D point_3D_t;
 
-#endif // POINT3D_H
+point_3D_t make_point_3D(double x, double y, double z);
+point_3D_t make_point_3D();
+void set_point_3D(point_3D_t &point, double x, double y, double z);
+void add_point_3D(point_3D_t &point, double x, double y, double z);
+void mul_point_3D(point_3D_t &point, double x, double y, double z);
+void mul_point_3D_matrix(point_3D_t &point, const matrix_t &matrix);
+
+#endif // point_3D_t_H

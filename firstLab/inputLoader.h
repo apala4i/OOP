@@ -2,8 +2,8 @@
 #define INPUTLOADER_H
 
 
-#include <iostream>
+#include "figure.h"
 
-int loadFromFile(std::string fileName);
+int load_from_file(figure_t &figure, const char *file_name);
 
 #endif // INPUTLOADER_H

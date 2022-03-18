@@ -15,15 +15,18 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     matrix.cpp \
-    point3d.cpp
+    point3d.cpp \
+    point_array.cpp
 
 HEADERS += \
     affinetransformatios.h \
+    errors.h \
     figure.h \
     inputLoader.h \
     mainwindow.h \
     matrix.h \
-    point3d.h
+    point3d.h \
+    point_array.h
 
 FORMS += \
     mainwindow.ui

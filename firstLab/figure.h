@@ -5,14 +5,17 @@
 #include <vector>
 #include "point3d.h"
 #include "matrix.h"
+#include "point_array.h"
 
-struct Figure
+
+struct figure
 {
-    std::vector<Point3D> Points;
-    Point3D figureCenter;
+    point_arr_t Points;
+    point_3D_t figureCenter;
 };
+typedef struct figure figure_t;
 
-void addTransformation(Figure &aFigure, Matrix &transformation);
+int add_transformation(figure_t &figure, matrix_t const &transformation);
 
 
 #endif // FIGURE_H

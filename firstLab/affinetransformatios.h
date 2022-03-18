@@ -4,8 +4,8 @@
 #include "matrix.h"
 #include "point3d.h"
 
-Matrix rotateMatrix(double angle, Point3D center);
-Matrix scaleMatrix(double coef);
-Matrix translateMatrix(Point3D translateVector);
+int rotate_matrix(matrix_t &matrix, const double angle, const point_3D_t center);
+int scale_matrix(matrix_t &matrix, const double coef);
+int translate_matrix(matrix_t &matrix, const point_3D_t translate_vector);
 
 #endif // AFFINETRANSFORMATIOS_H

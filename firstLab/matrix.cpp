@@ -1,19 +1,14 @@
 #include "matrix.h"
 #include <iostream>
-//typedef struct Matrix Matrix;
-//struct Matrix
-//{
-//    std::vector<double> matrixElements;
-//};
 
 // arifmetic operations
-int addToMatrix(Matrix &dst, Matrix &src)
+int add_to_matrix(matrix_t &dst, const matrix_t &src)
 {
     int rc = EXIT_SUCCESS;
     if (dst.columns != src.columns ||
         dst.rows != src.rows)
     {
-        return MATRIX_SIZE_ERROR;
+        return SIZE_ERROR;
     }
     else
     {
@@ -21,31 +16,31 @@ int addToMatrix(Matrix &dst, Matrix &src)
         {
             for(int j = 0; j < dst.columns; ++j)
             {
-                dst.matrixElements[i][j] += src.matrixElements[i][j];
+                dst.matrix_elements[i][j] += src.matrix_elements[i][j];
             }
         }
     }
     return rc;
 }
 
-int mulMatrix(Matrix &resMatrix, Matrix &firstMatrix, Matrix &secondMatrix)
+int mul_matrix(matrix_t &res_matrix, const matrix_t &first_matrix, const matrix_t &second_matrix)
 {
     int rc = EXIT_SUCCESS;
-    if (firstMatrix.columns != secondMatrix.rows)
+    if (first_matrix.columns != second_matrix.rows)
     {
-        return MATRIX_SIZE_ERROR;
+        return SIZE_ERROR;
     }
     else
     {
-        fillMatrix(resMatrix, firstMatrix.rows, secondMatrix.columns, 0.);
-        for (int i = 0; i < resMatrix.rows; ++i)
+        init_matrix(res_matrix, first_matrix.rows, second_matrix.columns);
+        for (int i = 0; i < res_matrix.rows; ++i)
         {
-            for (int j = 0; j < resMatrix.columns; ++j)
+            for (int j = 0; j < res_matrix.columns; ++j)
             {
-                resMatrix.matrixElements[i][j] = 0.;
-                for (int k = 0; k < firstMatrix.columns; ++k)
+                res_matrix.matrix_elements[i][j] = 0.;
+                for (int k = 0; k < first_matrix.columns; ++k)
                 {
-                    resMatrix.matrixElements[i][j] += firstMatrix.matrixElements[i][k] * secondMatrix.matrixElements[k][j];
+                    res_matrix.matrix_elements[i][j] += first_matrix.matrix_elements[i][k] * second_matrix.matrix_elements[k][j];
                 }
             }
         }
@@ -53,53 +48,83 @@ int mulMatrix(Matrix &resMatrix, Matrix &firstMatrix, Matrix &secondMatrix)
     return rc;
 }
 
-void digitMulMatrix(Matrix &dstMatrix, double coef)
+void digit_mul_matrix(matrix_t &dstmatrix_t, const double coef)
 {
-    for (int i = 0; i < dstMatrix.rows; ++i)
+    for (int i = 0; i < dstmatrix_t.rows; ++i)
     {
-        for (int j = 0; j < dstMatrix.columns; ++j)
+        for (int j = 0; j < dstmatrix_t.columns; ++j)
         {
-            dstMatrix.matrixElements[i][j] *= coef;
+            dstmatrix_t.matrix_elements[i][j] *= coef;
         }
     }
 }
 
 // create/delete
-void fillMatrix(Matrix &aMatrix, int rows, int columns, double value)
+int init_matrix(matrix_t &matrix_t, const int rows, const int columns)
 {
-    aMatrix.rows = rows;
-    aMatrix.columns = columns;
-    aMatrix.matrixElements.resize(rows);
-
-    for (int i = 0; i < rows; ++i)
+    int rc = EXIT_SUCCESS;
+    if (rows < 1 || columns < 1)
     {
-        aMatrix.matrixElements[i].resize(columns, value);
+        rc = SIZE_ERROR;
     }
-
-    for (std::vector<double> &x: aMatrix.matrixElements)
+    else
     {
-        x.resize(columns, 0.);
+        matrix_t.matrix_elements = (double **)calloc(rows, sizeof(double *));
+        if (matrix_t.matrix_elements == NULL)
+        {
+            rc = MALLOC_ERROR;
+        }
+        else
+        {
+            matrix_t.columns = columns;
+            matrix_t.rows = rows;
+            for (int i = 0; i < rows && rc == EXIT_SUCCESS; ++i)
+            {
+                matrix_t.matrix_elements[i] = (double *)malloc(sizeof(double) * columns);
+                if (matrix_t.matrix_elements[i] == NULL)
+                {
+                    free_matrix(matrix_t);
+                    rc = MALLOC_ERROR;
+                }
+            }
+            
+        }
     }
+    return rc;
 }
 
-
-void clearMatrix(Matrix &aMatrix)
+int free_matrix(matrix_t &matrix)
 {
-    aMatrix.matrixElements.clear();
+    int rc = EXIT_SUCCESS;
+    if (matrix.columns < 1 || matrix.rows < 1)
+    {
+        rc = SIZE_ERROR;
+    }
+    else
+    {
+        for (int i = 0; i < matrix.columns; i++)
+        {
+            free(matrix.matrix_elements[i]);
+        }
+        free(matrix.matrix_elements);
+        matrix.rows = 0;
+        matrix.columns = 0;
+    }
+    return rc;
 }
 
 // access to values
-int setValueMatrix(Matrix &aMatrix, int row, int column);
-int getValueMatrix(Matrix &aMatrix, int row, int coumn);
+int set_value_matrix(matrix_t &matrix_t, const int row, const int column);
+int get_value_matrix(matrix_t &matrix_t, const int row, const int coumn);
 
 
-void printMatrix(Matrix  &aMatrix)
+void print_matrix(const matrix_t  &matrix_t)
 {
-    for (int i = 0; i < aMatrix.rows; ++i)
+    for (int i = 0; i < matrix_t.rows; ++i)
     {
-        for (int j = 0; j < aMatrix.columns; ++j)
+        for (int j = 0; j < matrix_t.columns; ++j)
         {
-            std::cout << aMatrix.matrixElements[i][j] << " ";
+            std::cout << matrix_t.matrix_elements[i][j] << " ";
         }
         std::cout << std::endl;
     }

@@ -1,32 +1,33 @@
 #ifndef MATRIX_H
 #define MATRIX_H
-#include <vector>
 
 #define MATRIX_SIZE_ERROR 1
 #define MATRIX_INPUT_ERROR 2
 
-typedef struct Matrix Matrix;
-struct Matrix
+#include "errors.h"
+#include "point_array.h"
+
+typedef struct
 {
-    std::vector<std::vector<double>> matrixElements;
+    double** matrix_elements;
     int rows;
     int columns;
-};
+} matrix_t;
 
 // arifmetic operations
-int addToMatrix(Matrix &dst, Matrix &src);
-int mulMatrix(Matrix &resMatrix, Matrix &firstMatrix, Matrix &secondMatrix);
-void digitMulMatrix(Matrix &dstMatrix, double coef);
+int add_to_matrix(matrix_t &dst, const matrix_t &src);
+int mul_matrix(matrix_t &res_matrix, const matrix_t &first_matrix, const matrix_t &second_matrix);
+void digit_mul_matrix(matrix_t &dst_matrix, const double coef);
 
 // create/delete
-void fillMatrix(Matrix &aMatrix, int rows, int columns, double value);
-void clearMatrix(Matrix &aMatrix);
+int init_matrix(matrix_t &matrix, const int rows, const int columns);
+int free_matrix(matrix_t &matrix);
 
 // access to values
-int setValueMatrix(Matrix &aMatrix, int row, int column);
-int getValueMatrix(Matrix &aMatrix, int row, int coumn);
+int set_value_matrix(matrix_t &matrix, const int row, const int column);
+int get_value_matrix(matrix_t &matrix, const int row, const int coumn);
 
 
-void printMatrix(Matrix  &aMatrix);
+void print_matrix(const matrix_t &matrix);
 
 #endif // MATRIX_H

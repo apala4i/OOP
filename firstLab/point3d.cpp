@@ -1,41 +1,41 @@
 #include "point3d.h"
 
 
-Point3D makePoint3D(double x, double y, double z);
-Point3D makePoint3D();
+point_3D_t makePoint3D(double x, double y, double z);
+point_3D_t makePoint3D();
 
-void setPoint3D(Point3D &aPoint, double x, double y, double z)
+void set_point_3D(point_3D_t &point, double x, double y, double z)
 {
-    aPoint.x = x;
-    aPoint.y = y;
-    aPoint.z = z;
+    point.x = x;
+    point.y = y;
+    point.z = z;
 }
 
-void addPoint3D(Point3D &aPoint, double x, double y, double z)
+void add_point_3D(point_3D_t &point, double x, double y, double z)
 {
-    aPoint.x += x;
-    aPoint.y += y;
-    aPoint.z += z;
+    point.x += x;
+    point.y += y;
+    point.z += z;
 }
 
-void mulPoint3D(Point3D &aPoint, double x, double y, double z)
+void mul_point_3D(point_3D_t &point, double x, double y, double z)
 {
-    aPoint.x *= x;
-    aPoint.y *= y;
-    aPoint.z *= z;
+    point.x *= x;
+    point.y *= y;
+    point.z *= z;
 }
 
-void mulPoint3DMatrix(Point3D &aPoint, Matrix aMatrix)
+void mul_point_3D_matrix(point_3D_t &point, const matrix_t &matrix)
 {
-    Matrix pointMatrix;
-    fillMatrix(pointMatrix, 1, 3, 0.);
-    pointMatrix.matrixElements[0][0] = aPoint.x;
-    pointMatrix.matrixElements[1][0] = aPoint.y;
-    pointMatrix.matrixElements[2][0] = aPoint.z;
+    matrix_t pointMatrix;
+    init_matrix(pointMatrix, 1, 3);
+    pointMatrix.matrix_elements[0][0] = point.x;
+    pointMatrix.matrix_elements[1][0] = point.y;
+    pointMatrix.matrix_elements[2][0] = point.z;
 
-    Matrix resMatrix;
-    mulMatrix(resMatrix, pointMatrix, aMatrix);
-    aPoint.x = resMatrix.matrixElements[0][0];
-    aPoint.x = resMatrix.matrixElements[1][0];
-    aPoint.x = resMatrix.matrixElements[2][0];
+    matrix_t resMatrix;
+    mul_matrix(resMatrix, pointMatrix, matrix);
+    point.x = resMatrix.matrix_elements[0][0];
+    point.x = resMatrix.matrix_elements[1][0];
+    point.x = resMatrix.matrix_elements[2][0];
 }

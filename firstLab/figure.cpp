@@ -1,9 +1,10 @@
 #include "figure.h"
 
-void addTransformation(Figure &aFigure, Matrix &transformation)
+int add_transformation(figure_t &figure, const matrix_t &transformation)
 {
-    for (size_t i = 0; i < aFigure.Points.size(); ++i)
-    {
-        mulPoint3DMatrix(aFigure.Points[i], transformation);
-    }
+    int rc = EXIT_SUCCESS;
+
+    // TODO: realisation
+
+    return rc;
 }
