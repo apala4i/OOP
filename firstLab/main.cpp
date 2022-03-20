@@ -1,8 +1,10 @@
-#include "mainwindow.h"
+// #include "mainwindow.h"
 #include "matrix.h"
-#include <iostream>
+#include "figure.h"
+#include "inputLoader.h"
+#include <cstdio>
 
-#include <QApplication>
+// #include <QApplication>
 
 int main(int argc, char *argv[])
 {
@@ -10,10 +12,10 @@ int main(int argc, char *argv[])
 //    MainWindow w;
 //    w.show();
 //    return a.exec();
+    figure_t figure;
 
-    struct matrix matrix;
-    init_matrix(matrix, 10, 10);
-    print_matrix(matrix);
-
-
+    load_from_file(figure, "/home/chel/2022/University/OOP/lab_01/firstLab/test.txt");
+    print_figure(stdout, figure);
+    
+    
 }

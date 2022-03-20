@@ -9,7 +9,7 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    affinetransformatios.cpp \
+    affine_transform.cpp \
     figure.cpp \
     inputLoader.cpp \
     main.cpp \
@@ -19,7 +19,7 @@ SOURCES += \
     point_array.cpp
 
 HEADERS += \
-    affinetransformatios.h \
+    affine_transform.h \
     errors.h \
     figure.h \
     inputLoader.h \

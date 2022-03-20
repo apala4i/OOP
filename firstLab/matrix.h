@@ -5,12 +5,13 @@
 #define MATRIX_INPUT_ERROR 2
 
 #include "errors.h"
+#include <cstdio>
 
 struct matrix
 {
     double** matrix_elements;
-    int rows;
-    int columns;
+    int rows = 0;
+    int columns = 0;
 };
 
 typedef struct matrix matrix_t;
@@ -24,11 +25,16 @@ void digit_mul_matrix(matrix_t &dst_matrix, const double coef);
 int init_matrix(matrix_t &matrix, const int rows, const int columns);
 int free_matrix(matrix_t &matrix);
 
+int print_matrix(FILE *file, const matrix_t &matrix);
+
+// unrealised funcs
 // access to values
 int set_value_matrix(matrix_t &matrix, const int row, const int column);
 int get_value_matrix(matrix_t &matrix, const int row, const int coumn);
 
 
-void print_matrix(const matrix_t &matrix);
+
+
+
 
 #endif // MATRIX_H

@@ -1,11 +1,10 @@
 #include "matrix.h"
-#include <iostream>
-
+#include <cstdlib>
 
 // arifmetic operations
 int add_to_matrix(matrix_t &dst, const matrix_t &src)
 {
-    int rc = EXIT_SUCCESS;
+    int rc = SUCCESS;
     if (dst.columns != src.columns ||
         dst.rows != src.rows)
     {
@@ -26,10 +25,10 @@ int add_to_matrix(matrix_t &dst, const matrix_t &src)
 
 int mul_matrix(matrix_t &res_matrix, const matrix_t &first_matrix, const matrix_t &second_matrix)
 {
-    int rc = EXIT_SUCCESS;
+    int rc = SUCCESS;
     if (first_matrix.columns != second_matrix.rows)
     {
-        return SIZE_ERROR;
+        rc = SIZE_ERROR;
     }
     else
     {
@@ -61,30 +60,30 @@ void digit_mul_matrix(matrix_t &dstmatrix_t, const double coef)
 }
 
 // create/delete
-int init_matrix(matrix_t &matrix_t, const int rows, const int columns)
+int init_matrix(matrix_t &matrix, const int rows, const int columns)
 {
-    int rc = EXIT_SUCCESS;
+    int rc = SUCCESS;
     if (rows < 1 || columns < 1)
     {
         rc = SIZE_ERROR;
     }
     else
     {
-        matrix_t.matrix_elements = (double **)calloc(rows, sizeof(double *));
-        if (matrix_t.matrix_elements == NULL)
+        matrix.matrix_elements = (double **)calloc(rows, sizeof(double *));
+        if (matrix.matrix_elements == NULL)
         {
             rc = MALLOC_ERROR;
         }
         else
         {
-            matrix_t.columns = columns;
-            matrix_t.rows = rows;
-            for (int i = 0; i < rows && rc == EXIT_SUCCESS; ++i)
+            matrix.columns = columns;
+            matrix.rows = rows;
+            for (int i = 0; i < rows && rc == SUCCESS; ++i)
             {
-                matrix_t.matrix_elements[i] = (double *)malloc(sizeof(double) * columns);
-                if (matrix_t.matrix_elements[i] == NULL)
+                matrix.matrix_elements[i] = (double *)calloc(columns, sizeof(double));
+                if (matrix.matrix_elements[i] == NULL)
                 {
-                    free_matrix(matrix_t);
+                    free_matrix(matrix);
                     rc = MALLOC_ERROR;
                 }
             }
@@ -96,7 +95,7 @@ int init_matrix(matrix_t &matrix_t, const int rows, const int columns)
 
 int free_matrix(matrix_t &matrix)
 {
-    int rc = EXIT_SUCCESS;
+    int rc = SUCCESS;
     if (matrix.columns < 1 || matrix.rows < 1)
     {
         rc = SIZE_ERROR;
@@ -119,14 +118,16 @@ int set_value_matrix(matrix_t &matrix_t, const int row, const int column);
 int get_value_matrix(matrix_t &matrix_t, const int row, const int coumn);
 
 
-void print_matrix(const matrix_t  &matrix_t)
+int print_matrix(FILE *file, const matrix_t  &matrix_t)
 {
+    int rc = SUCCESS;
     for (int i = 0; i < matrix_t.rows; ++i)
     {
         for (int j = 0; j < matrix_t.columns; ++j)
         {
-            std::cout << matrix_t.matrix_elements[i][j] << " ";
+             fprintf(file, "%lf" ,matrix_t.matrix_elements[i][j]);
         }
-        std::cout << std::endl;
+        fprintf(file, "\n");
     }
+    return rc;
 }

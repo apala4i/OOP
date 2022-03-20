@@ -12,10 +12,23 @@ struct figure
 {
     point_arr_t Points;
     point_3D_t figureCenter;
+    matrix_t links;
 };
 typedef struct figure figure_t;
 
-int add_transformation(figure_t &figure, matrix_t const &transformation);
 
+
+
+int add_transformation(figure_t &figure, const matrix_t &transformation);
+int add_point_to_figure(figure_t &figure, const point_3D_t point);
+int add_point_to_figure(figure_t &figure, const double x, const double y, const double z);
+int get_points_count(int &count, const figure_t &figure);
+int init_links_matrix(figure_t &figure);
+int init_links_matrix(figure_t &figure, const int &size);
+int add_link_to_figure(figure_t &figure, const int from, const int to);
+int add_transformation(figure_t &figure, const matrix_t &transformation);
+int figure_copy(figure_t &dst, const figure_t &src);
+
+int print_figure(FILE *file, const figure_t figure);
 
 #endif // FIGURE_H

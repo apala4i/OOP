@@ -4,11 +4,15 @@
 #include "errors.h"
 #include "stdlib.h"
 #include "point3d.h"
+#include <cstdio>
+
+#define START_SIZE 10
 
 struct arr
 {
    struct point_3D *array;
-   int size;
+   int capacity = 0;
+   int size = 0;
 };
 
 typedef struct arr point_arr_t;
@@ -16,6 +20,14 @@ typedef struct arr point_arr_t;
 int init_point_array(point_arr_t &data, int size);
 
 int free_point_array(point_arr_t &data);
+
+int resize_point_array(point_arr_t &data, const int new_capacity);
+
+int push_back_point(point_arr_t &data, const point_3D_t &point);
+
+int push_back_point_by_cord(point_arr_t &data, double x, double y, double z);
+
+int print_point_array(FILE *file, const point_arr_t &point_arr);
 
 
 #endif // POINT_ARRAY_H
