@@ -138,8 +138,12 @@ void MainWindow::on_pushButton_7_clicked()
     scene->clear();
 }
 
-
-void MainWindow::on_lineEdit_13_textEdited(const QString &arg1)
+void MainWindow::on_pushButton_2_clicked()
 {
+    double x = ui->lineEdit_13->text().toDouble();
+    double y = ui->lineEdit_8->text().toDouble();
+    double z = ui->lineEdit_12->text().toDouble();
+    set_point_3D(main_figure.figureCenter, x, y, z);
+    std::cout << x << y << z << std::endl;
 }
 
