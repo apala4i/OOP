@@ -29,6 +29,8 @@ int add_link_to_figure(figure_t &figure, const int from, const int to);
 int add_transformation(figure_t &figure, const matrix_t &transformation);
 int figure_copy(figure_t &dst, const figure_t &src);
 
+
+int free_figure(figure_t &figure);
 int print_figure(FILE *file, const figure_t figure);
 
 #endif // FIGURE_H

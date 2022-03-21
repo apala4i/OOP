@@ -96,7 +96,7 @@ int init_matrix(matrix_t &matrix, const int rows, const int columns)
 int free_matrix(matrix_t &matrix)
 {
     int rc = SUCCESS;
-    if (matrix.columns < 1 || matrix.rows < 1)
+    if (matrix.columns < 0 || matrix.rows < 0)
     {
         rc = SIZE_ERROR;
     }

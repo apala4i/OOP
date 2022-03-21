@@ -99,7 +99,7 @@ int figure_copy(figure_t &dst, const figure_t &src)
     
     if (dst.links.columns != 0)
     {
-        free(dst.links.matrix_elements);
+        free_matrix(dst.links);
     }
     dst.links.columns = src.links.columns;
     dst.links.matrix_elements = src.links.matrix_elements;
@@ -107,7 +107,7 @@ int figure_copy(figure_t &dst, const figure_t &src)
     
     if (dst.points.size != 0)
     {
-        free(dst.points.array);
+        free_point_array(dst.points);
     }
     dst.points.array = src.points.array;
     dst.points.capacity = src.points.capacity;
@@ -122,4 +122,12 @@ int print_figure(FILE *file, const figure_t figure)
     print_point_array(file, figure.points);
     print_matrix(file, figure.links);
     return SUCCESS;
+}
+
+int free_figure(figure_t &figure)
+{
+    int rc = SUCCESS;
+    free_matrix(figure.links);
+    free_point_array(figure.points);
+    return rc;
 }
