@@ -7,8 +7,8 @@
 #include <iostream>
 
 
-figure_t main_figure;
-QGraphicsScene *scene;
+static figure_t main_figure;
+static QGraphicsScene *scene;
 
 int draw_point(const point_3D_t point);
 
@@ -93,10 +93,9 @@ int draw_point(const point_3D_t point)
 void MainWindow::on_pushButton_3_clicked()
 {
     matrix_t matrix;
-    point_3D_t scale, center;
+    point_3D_t scale;
     set_point_3D(scale, 2, 2, 2);
-    set_point_3D(center, 2, 2, 2);
-    scale_matrix(matrix, scale, center);
+    scale_matrix(matrix, scale, main_figure.figure_center);
     add_transformation(main_figure, matrix);
     free_matrix(matrix);
     // print_figure(stdout, main_figure);
@@ -108,10 +107,9 @@ void MainWindow::on_pushButton_3_clicked()
 void MainWindow::on_pushButton_4_clicked()
 {
     matrix_t matrix;
-    point_3D_t rotate, center;
+    point_3D_t rotate;
     set_point_3D(rotate, 45, 45, 45);
-    set_point_3D(center, 2, 2, 2);
-    rotate_matrix(matrix, rotate, center);
+    rotate_matrix(matrix, rotate, main_figure.figure_center);
 
 
     add_transformation(main_figure, matrix);
