@@ -48,13 +48,11 @@ int file_line_count(int &point_count, FILE *file)
     {
         rewind(file);
         point_count = 0;
-        char *msg = NULL;
-        size_t msg_count = 0;
-        while(getline(&msg, &msg_count, file) != -1)
+        char msg[255];
+        while(fgets(msg, 255, file))
         {
             ++point_count;   
         }
-        free(msg);
     }
     rewind(file);
     return rc;

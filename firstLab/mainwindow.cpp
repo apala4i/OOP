@@ -31,7 +31,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButton_6_clicked()
 {
-    load_from_file(main_figure, "/home/chel/2022/University/OOP/lab_01/firstLab/test.txt");
+    load_from_file(main_figure, "D:\\VUZ\\OOP\\lab_01_\\OOP\\firstLab\\test.txt");
     print_figure(stdout, main_figure);
     draw_figure_points(main_figure);
     draw_figure_links(main_figure);
