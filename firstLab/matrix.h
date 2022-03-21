@@ -27,14 +27,4 @@ int free_matrix(matrix_t &matrix);
 
 int print_matrix(FILE *file, const matrix_t &matrix);
 
-// unrealised funcs
-// access to values
-int set_value_matrix(matrix_t &matrix, const int row, const int column);
-int get_value_matrix(matrix_t &matrix, const int row, const int coumn);
-
-
-
-
-
-
 #endif // MATRIX_H

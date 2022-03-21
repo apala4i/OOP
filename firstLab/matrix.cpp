@@ -113,10 +113,6 @@ int free_matrix(matrix_t &matrix)
     return rc;
 }
 
-// access to values
-int set_value_matrix(matrix_t &matrix_t, const int row, const int column);
-int get_value_matrix(matrix_t &matrix_t, const int row, const int coumn);
-
 
 int print_matrix(FILE *file, const matrix_t  &matrix_t)
 {

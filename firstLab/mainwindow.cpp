@@ -29,14 +29,14 @@ MainWindow::MainWindow(QWidget *parent)
 
 MainWindow::~MainWindow()
 {
+    free_figure(main_figure);
     delete ui;
 }
 
 
 void MainWindow::on_pushButton_6_clicked()
 {
-    load_from_file(main_figure, "D:\\VUZ\\OOP\\lab_01_\\OOP\\firstLab\\test.txt");
-    // print_figure(stdout, main_figure);
+    load_from_file(main_figure, "/home/chel/2022/University/OOP/lab_01/firstLab/test.txt");
     draw_figure_points(main_figure);
     draw_figure_links(main_figure);
 }
@@ -141,7 +141,6 @@ void MainWindow::on_pushButton_5_clicked()
 
     add_transformation(main_figure, matrix);
     free_matrix(matrix);
-    // print_figure(stdout, main_figure);
     scene->clear();
     draw_figure(main_figure);
 }

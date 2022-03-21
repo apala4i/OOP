@@ -132,3 +132,8 @@ int free_figure(figure_t &figure)
     free_point_array(figure.points);
     return rc;
 }
+
+bool figure_is_empty(figure_t figure)
+{
+    if (fi)
+}

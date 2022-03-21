@@ -169,7 +169,7 @@ int scale_matrix(matrix_t &matrix, const point_3D_t scale_coefficient, const poi
         rc = (rc != 0) ? rc : mul_matrix(move_scale_matrix, move_matrix, scale_matrix);
         rc = (rc != 0) ? rc : mul_matrix(matrix, move_scale_matrix, back_move_matrix);
     }
-    return EXIT_SUCCESS;
+    return rc;
 }
 
 int rotate_matrix(matrix_t &matrix, const point_3D_t rotate_angles, const point_3D_t center)
