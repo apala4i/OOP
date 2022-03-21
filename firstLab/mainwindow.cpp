@@ -92,9 +92,13 @@ int draw_point(const point_3D_t point)
 
 void MainWindow::on_pushButton_3_clicked()
 {
-    matrix_t matrix;
     point_3D_t scale;
-    set_point_3D(scale, 2, 2, 2);
+    double x = ui->lineEdit_4->text().toDouble();
+    double y = ui->lineEdit_5->text().toDouble();
+    double z = ui->lineEdit_6->text().toDouble();
+    set_point_3D(scale, x, y, z);
+    matrix_t matrix;
+
     scale_matrix(matrix, scale, main_figure.figure_center);
     add_transformation(main_figure, matrix);
     free_matrix(matrix);
@@ -106,9 +110,12 @@ void MainWindow::on_pushButton_3_clicked()
 
 void MainWindow::on_pushButton_4_clicked()
 {
-    matrix_t matrix;
     point_3D_t rotate;
-    set_point_3D(rotate, 45, 45, 45);
+    double x = ui->lineEdit_7->text().toDouble();
+    double y = ui->lineEdit_15->text().toDouble();
+    double z = ui->lineEdit_14->text().toDouble();
+    set_point_3D(rotate, x, y, z);
+    matrix_t matrix;
     rotate_matrix(matrix, rotate, main_figure.figure_center);
 
 
@@ -122,9 +129,13 @@ void MainWindow::on_pushButton_4_clicked()
 
 void MainWindow::on_pushButton_5_clicked()
 {
-    matrix_t matrix;
     point_3D_t translate_vector;
-    set_point_3D(translate_vector, 10, 10, 10);
+    double x = ui->lineEdit_11->text().toDouble();
+    double y = ui->lineEdit_9->text().toDouble();
+    double z = ui->lineEdit_10->text().toDouble();
+    set_point_3D(translate_vector, x, y, z);
+    matrix_t matrix;
+
     translate_matrix(matrix, translate_vector);
 
 
@@ -146,6 +157,5 @@ void MainWindow::on_pushButton_2_clicked()
     double y = ui->lineEdit_8->text().toDouble();
     double z = ui->lineEdit_12->text().toDouble();
     set_point_3D(main_figure.figure_center, x, y, z);
-    std::cout << x << y << z << std::endl;
 }
 
