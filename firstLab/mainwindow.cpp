@@ -36,7 +36,7 @@ MainWindow::~MainWindow()
 void MainWindow::on_pushButton_6_clicked()
 {
     load_from_file(main_figure, "D:\\VUZ\\OOP\\lab_01_\\OOP\\firstLab\\test.txt");
-    print_figure(stdout, main_figure);
+    // print_figure(stdout, main_figure);
     draw_figure_points(main_figure);
     draw_figure_links(main_figure);
 }
@@ -52,15 +52,15 @@ int draw_figure(const figure_t &figure)
 int draw_figure_points(const figure_t &figure)
 {
     int rc = SUCCESS;
-    if (figure.Points.size == 0)
+    if (figure.points.size == 0)
     {
         rc = EMPTY_DATA_ERROR;
     }
     else
     {
-        for (int i = 0; i < figure.Points.size; ++i)
+        for (int i = 0; i < figure.points.size; ++i)
         {
-            draw_point(figure.Points.array[i]);
+            draw_point(figure.points.array[i]);
         }
     }
     return rc;
@@ -75,7 +75,7 @@ int draw_figure_links(const figure_t &figure)
         {
             if (figure.links.matrix_elements[i][j] >= 0.0001)
             {
-                scene->addLine(figure.Points.array[i].x, figure.Points.array[i].y, figure.Points.array[j].x, figure.Points.array[j].y);
+                scene->addLine(figure.points.array[i].x, figure.points.array[i].y, figure.points.array[j].x, figure.points.array[j].y);
             }
         }
     }
@@ -98,7 +98,8 @@ void MainWindow::on_pushButton_3_clicked()
     set_point_3D(center, 2, 2, 2);
     scale_matrix(matrix, scale, center);
     add_transformation(main_figure, matrix);
-    print_figure(stdout, main_figure);
+    free_matrix(matrix);
+    // print_figure(stdout, main_figure);
     scene->clear();
     draw_figure(main_figure);
 
@@ -114,7 +115,9 @@ void MainWindow::on_pushButton_4_clicked()
 
 
     add_transformation(main_figure, matrix);
-    print_figure(stdout, main_figure);
+    free_matrix(matrix);
+
+    // print_figure(stdout, main_figure);
     scene->clear();
     draw_figure(main_figure);
 }
@@ -128,7 +131,8 @@ void MainWindow::on_pushButton_5_clicked()
 
 
     add_transformation(main_figure, matrix);
-    print_figure(stdout, main_figure);
+    free_matrix(matrix);
+    // print_figure(stdout, main_figure);
     scene->clear();
     draw_figure(main_figure);
 }
@@ -143,7 +147,7 @@ void MainWindow::on_pushButton_2_clicked()
     double x = ui->lineEdit_13->text().toDouble();
     double y = ui->lineEdit_8->text().toDouble();
     double z = ui->lineEdit_12->text().toDouble();
-    set_point_3D(main_figure.figureCenter, x, y, z);
+    set_point_3D(main_figure.figure_center, x, y, z);
     std::cout << x << y << z << std::endl;
 }
 

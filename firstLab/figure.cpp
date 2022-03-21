@@ -11,9 +11,9 @@ int add_transformation(figure_t &figure, const matrix_t &transformation)
     }
     else
     {
-        for (int i = 0;i < figure.Points.size; ++i)
+        for (int i = 0;i < figure.points.size; ++i)
         {
-            mul_point_3D_matrix(figure.Points.array[i], transformation);
+            mul_point_3D_matrix(figure.points.array[i], transformation);
         }
     }
 
@@ -22,31 +22,31 @@ int add_transformation(figure_t &figure, const matrix_t &transformation)
 
 int get_points_count(int &count, const figure_t &figure)
 {
-    count = figure.Points.size;
+    count = figure.points.size;
     return SUCCESS;
 }
 
 int add_point_to_figure(figure_t &figure, const point_3D_t point)
 {
-    return push_back_point(figure.Points, point);
+    return push_back_point(figure.points, point);
 }
 
 int add_point_to_figure(figure_t &figure, const double x, const double y, const double z)
 {
-    return push_back_point_by_cord(figure.Points, x, y, z);
+    return push_back_point_by_cord(figure.points, x, y, z);
 }
 
 int init_links_matrix(figure_t &figure)
 {
     int rc = SUCCESS;
-    if (figure.Points.size < 1)
+    if (figure.points.size < 1)
     {
         rc = SIZE_ERROR;
     }
     else
     {
         matrix_t tmp_matrix;
-        rc = init_matrix(tmp_matrix, figure.Points.size, figure.Points.size);
+        rc = init_matrix(tmp_matrix, figure.points.size, figure.points.size);
         if (rc == SUCCESS)
         {
             figure.links.columns = tmp_matrix.columns;
@@ -95,7 +95,7 @@ int add_link_to_figure(figure_t &figure, const int from, const int to)
 
 int figure_copy(figure_t &dst, const figure_t &src)
 {
-    copy_point_3D(dst.figureCenter,  src.figureCenter);
+    copy_point_3D(dst.figure_center,  src.figure_center);
     
     if (dst.links.columns != 0)
     {
@@ -105,13 +105,13 @@ int figure_copy(figure_t &dst, const figure_t &src)
     dst.links.matrix_elements = src.links.matrix_elements;
     dst.links.rows = src.links.rows;
     
-    if (dst.Points.size != 0)
+    if (dst.points.size != 0)
     {
-        free(dst.Points.array);
+        free(dst.points.array);
     }
-    dst.Points.array = src.Points.array;
-    dst.Points.capacity = src.Points.capacity;
-    dst.Points.size = src.Points.size;
+    dst.points.array = src.points.array;
+    dst.points.capacity = src.points.capacity;
+    dst.points.size = src.points.size;
 
     return SUCCESS;
     
@@ -119,7 +119,7 @@ int figure_copy(figure_t &dst, const figure_t &src)
 
 int print_figure(FILE *file, const figure_t figure)
 {
-    print_point_array(file, figure.Points);
+    print_point_array(file, figure.points);
     print_matrix(file, figure.links);
     return SUCCESS;
 }

@@ -10,8 +10,8 @@
 
 struct figure
 {
-    point_arr_t Points;
-    point_3D_t figureCenter;
+    point_arr_t points;
+    point_3D_t figure_center;
     matrix_t links;
 };
 typedef struct figure figure_t;
