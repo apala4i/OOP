@@ -171,3 +171,20 @@ int scale_matrix(matrix_t &matrix, const point_3D_t scale_coefficient, const poi
     }
     return EXIT_SUCCESS;
 }
+
+int rotate_matrix(matrix_t &matrix, const point_3D_t rotate_angles, const point_3D_t center)
+{
+    int rc = SUCCESS;
+    matrix_t matrix_Ox;
+    matrix_t matrix_Oy;
+    matrix_t matrix_Oz;
+
+    rc = rc != 0 ? rc : rotate_matrix_Ox(matrix_Ox, rotate_angles.x, center);
+    rc = rc != 0 ? rc : rotate_matrix_Oy(matrix_Oy, rotate_angles.y, center);
+    rc = rc != 0 ? rc : rotate_matrix_Oz(matrix_Oz, rotate_angles.z, center);
+
+    matrix_t tmp;
+    rc = rc != 0 ? rc : mul_matrix(tmp, matrix_Ox, matrix_Oy);
+    rc = rc != 0 ? rc : mul_matrix(matrix, tmp, matrix_Oz);
+    return rc;
+}

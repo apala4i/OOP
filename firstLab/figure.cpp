@@ -5,7 +5,7 @@ int add_transformation(figure_t &figure, const matrix_t &transformation)
 {
     int rc = SUCCESS;
 
-    if (transformation.rows != 3)
+    if (transformation.rows != 4)
     {
         rc = SIZE_ERROR;
     }

@@ -12,7 +12,8 @@ int make_point_3D(point_3D_t *point, const double x, const double y, const doubl
     }
     else
     {
-        rc = set_point_3D(*tmp_point, x, y, z);
+        point = tmp_point;
+        rc = set_point_3D(*point, x, y, z);
     }
     return rc;
 }
@@ -44,16 +45,17 @@ int mul_point_3D(point_3D_t &point, const double x, const double y, const double
 int mul_point_3D_matrix(point_3D_t &point, const matrix_t &matrix)
 {
     matrix_t pointMatrix;
-    init_matrix(pointMatrix, 1, 3);
+    init_matrix(pointMatrix, 1, 4);
     pointMatrix.matrix_elements[0][0] = point.x;
-    pointMatrix.matrix_elements[1][0] = point.y;
-    pointMatrix.matrix_elements[2][0] = point.z;
+    pointMatrix.matrix_elements[0][1] = point.y;
+    pointMatrix.matrix_elements[0][2] = point.z;
+    pointMatrix.matrix_elements[0][3] = 1.;
 
     matrix_t resMatrix;
     mul_matrix(resMatrix, pointMatrix, matrix);
     point.x = resMatrix.matrix_elements[0][0];
-    point.y = resMatrix.matrix_elements[1][0];
-    point.z = resMatrix.matrix_elements[2][0];
+    point.y = resMatrix.matrix_elements[0][1];
+    point.z = resMatrix.matrix_elements[0][2];
     return SUCCESS;
 }
 
