@@ -25,7 +25,7 @@ int load_from_file(figure_t &figure, const char *file_name)
             int cur_link;
             while (fscanf(input_file, "%d", &cur_link) == 1)
             {
-                rc = (rc != 0) ? rc : add_link_to_figure(tmp_figure, i, cur_link);
+                rc = (rc != 0) ? rc : add_link_to_figure(tmp_figure, i, cur_link - 1);
             }
             while (!feof(input_file) && fgetc(input_file) != '\n');
         }
