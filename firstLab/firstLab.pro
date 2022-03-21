@@ -11,6 +11,7 @@ CONFIG += c++11
 SOURCES += \
     affine_transform.cpp \
     controller.cpp \
+    error_show.cpp \
     figure.cpp \
     inputLoader.cpp \
     main.cpp \
@@ -22,6 +23,7 @@ SOURCES += \
 HEADERS += \
     affine_transform.h \
     controller.h \
+    error_show.h \
     errors.h \
     figure.h \
     inputLoader.h \

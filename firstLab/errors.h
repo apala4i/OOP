@@ -11,5 +11,6 @@
 #define BAD_DATA 7
 #define FILE_ERROR 8
 #define INPUT_ERROR 9
-
+#define EMPTY_FIGURE 10
+#define WRONG_COMMAND 11
 #endif // ERRORS_H

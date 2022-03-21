@@ -1,4 +1,6 @@
 #include "figure.h"
+#include "matrix.h"
+#include "point_array.h"
 #include "point_array.h"
 
 int add_transformation(figure_t &figure, const matrix_t &transformation)
@@ -96,26 +98,15 @@ int add_link_to_figure(figure_t &figure, const int from, const int to)
 
 int figure_copy(figure_t &dst, const figure_t &src)
 {
-    copy_point_3D(dst.figure_center,  src.figure_center);
-    
-    if (dst.links.columns != 0)
-    {
-        free_matrix(dst.links);
-    }
-    dst.links.columns = src.links.columns;
-    dst.links.matrix_elements = src.links.matrix_elements;
-    dst.links.rows = src.links.rows;
-    
-    if (dst.points.size != 0)
-    {
-        free_point_array(dst.points);
-    }
-    dst.points.array = src.points.array;
-    dst.points.capacity = src.points.capacity;
-    dst.points.size = src.points.size;
+    int rc = SUCCESS;
 
-    return SUCCESS;
+    rc = copy_point_3D(dst.figure_center,  src.figure_center);
     
+    rc = rc == SUCCESS ? copy_point_array(dst.points, src.points) : rc;
+
+    rc = rc == SUCCESS ? copy_matrix(dst.links, src.links) : rc;
+
+    return rc;
 }
 
 int print_figure(FILE *file, const figure_t figure)
@@ -131,4 +122,9 @@ int free_figure(figure_t &figure)
     free_matrix(figure.links);
     free_point_array(figure.points);
     return rc;
+}
+
+bool figure_is_empty(figure_t figure)
+{
+    return point_array_empty(figure.points);
 }

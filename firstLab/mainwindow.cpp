@@ -6,6 +6,8 @@
 #include <QApplication>
 #include <iostream>
 
+#include "controller.h"
+#include "error_show.h"
 
 static figure_t main_figure;
 static QGraphicsScene *scene;
@@ -15,6 +17,10 @@ int draw_point(const point_3D_t point);
 int draw_figure_points(const figure_t &figure);
 
 int draw_figure_links(const figure_t &figure);
+
+void update_figure(QMainWindow *window);
+
+void repaint_figure(figure_t figure);
 
 point_3D_t scale;
 
@@ -29,16 +35,18 @@ MainWindow::MainWindow(QWidget *parent)
 
 MainWindow::~MainWindow()
 {
-    free_figure(main_figure);
     delete ui;
 }
 
 
+// load figure
 void MainWindow::on_pushButton_6_clicked()
 {
-    load_from_file(main_figure, "/home/chel/2022/University/OOP/lab_01/firstLab/test.txt");
-    draw_figure_points(main_figure);
-    draw_figure_links(main_figure);
+    int rc = make_action(LOAD_FIGURE);
+    if (rc == SUCCESS)
+    {
+        update_figure(this);
+    }
 }
 
 int draw_figure(const figure_t &figure)
@@ -58,7 +66,7 @@ int draw_figure_points(const figure_t &figure)
     }
     else
     {
-        for (int i = 0; i < figure.points.size; ++i)
+        for (int i = 0; i < get_size_point_array(figure.points); ++i)
         {
             draw_point(figure.points.array[i]);
         }
@@ -90,6 +98,7 @@ int draw_point(const point_3D_t point)
 }
 
 
+// scale
 void MainWindow::on_pushButton_3_clicked()
 {
     point_3D_t scale;
@@ -97,36 +106,56 @@ void MainWindow::on_pushButton_3_clicked()
     double y = ui->lineEdit_5->text().toDouble();
     double z = ui->lineEdit_6->text().toDouble();
     set_point_3D(scale, x, y, z);
-    matrix_t matrix;
 
-    scale_matrix(matrix, scale, main_figure.figure_center);
-    add_transformation(main_figure, matrix);
-    free_matrix(matrix);
-    // print_figure(stdout, main_figure);
-    scene->clear();
-    draw_figure(main_figure);
-
+    int rc = make_action(SCALE, scale);
+    if (rc == SUCCESS)
+    {
+        update_figure(this);
+    }
 }
 
+void update_figure(QMainWindow *window)
+{
+    int rc = SUCCESS;
+    figure_t figure;
+    rc = rc == SUCCESS ? make_action(GET_FIGURE, figure) : rc;
+    if (rc != SUCCESS)
+    {
+        show_error(window, rc);
+    }
+    else
+    {
+        repaint_figure(figure);
+    }
+    free_figure(figure);
+}
+
+void repaint_figure(figure_t figure)
+{
+    scene->clear();
+    draw_figure(figure);
+}
+
+
+// rotate
 void MainWindow::on_pushButton_4_clicked()
 {
+    int rc = SUCCESS;
     point_3D_t rotate;
     double x = ui->lineEdit_7->text().toDouble();
     double y = ui->lineEdit_15->text().toDouble();
     double z = ui->lineEdit_14->text().toDouble();
     set_point_3D(rotate, x, y, z);
-    matrix_t matrix;
-    rotate_matrix(matrix, rotate, main_figure.figure_center);
 
-
-    add_transformation(main_figure, matrix);
-    free_matrix(matrix);
-
-    // print_figure(stdout, main_figure);
-    scene->clear();
-    draw_figure(main_figure);
+    rc = make_action(ROTATE, rotate);
+    if (rc == SUCCESS)
+    {
+        update_figure(this);
+    }
 }
 
+
+// translate
 void MainWindow::on_pushButton_5_clicked()
 {
     point_3D_t translate_vector;
@@ -134,27 +163,37 @@ void MainWindow::on_pushButton_5_clicked()
     double y = ui->lineEdit_9->text().toDouble();
     double z = ui->lineEdit_10->text().toDouble();
     set_point_3D(translate_vector, x, y, z);
-    matrix_t matrix;
 
-    translate_matrix(matrix, translate_vector);
+    int rc = make_action(TRANSLATE, translate_vector);
+    if (rc == SUCCESS)
+    {
+        update_figure(this);
+    }
 
-
-    add_transformation(main_figure, matrix);
-    free_matrix(matrix);
-    scene->clear();
-    draw_figure(main_figure);
 }
 
+
+// clear canvas
 void MainWindow::on_pushButton_7_clicked()
 {
     scene->clear();
 }
 
+
+// change center
 void MainWindow::on_pushButton_2_clicked()
 {
     double x = ui->lineEdit_13->text().toDouble();
     double y = ui->lineEdit_8->text().toDouble();
     double z = ui->lineEdit_12->text().toDouble();
-    set_point_3D(main_figure.figure_center, x, y, z);
+
+    point_3D_t new_center;
+    set_point_3D(new_center, x, y, z);
+
+    int rc = make_action(SET_CENTER,  new_center);
+    if (rc != SUCCESS)
+    {
+        show_error(this, rc);
+    }
 }
 

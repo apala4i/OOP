@@ -29,5 +29,13 @@ int push_back_point_by_cord(point_arr_t &data, double x, double y, double z);
 
 int print_point_array(FILE *file, const point_arr_t &point_arr);
 
+int get_size_point_array(const point_arr_t &point_arr);
+
+int copy_point_array(point_arr_t &dst, const point_arr_t &src);
+
+double get_el_by_index_point_array(const point_arr_t &point_arr);
+
+bool point_array_empty(const point_arr_t &point_arr);
+
 
 #endif // POINT_ARRAY_H

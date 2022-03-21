@@ -1,4 +1,5 @@
 #include "point_array.h"
+#include <cstring>
 
 int init_point_array(point_arr_t &data, int capacity = START_SIZE)
 {
@@ -124,6 +125,45 @@ int print_point_array(FILE *file, const point_arr_t &data)
         {
             print_point(file, data.array[i]);
         }
+    }
+    return rc;
+}
+
+bool point_array_empty(const point_arr_t &point_arr)
+{
+    return point_arr.size == 0;
+}
+
+int get_size_point_array(const point_arr_t &point_arr)
+{
+    return point_arr.size;
+}
+
+int get_by_ind_point_array(point_3D_t &value, const int ind, const point_arr_t &point_arr)
+{
+    int rc = SUCCESS;
+    rc = ind < 0 ? BAD_ARG_ERROR : SUCCESS;
+    rc = rc == SUCCESS && ind >= point_arr.size ? INDEX_OUT_OF_RANGE : SUCCESS;
+    value = rc == SUCCESS ? point_arr.array[ind] : value;
+    return rc;
+}
+
+int copy_point_array(point_arr_t &dst, const point_arr_t &src)
+{
+    int rc = SUCCESS;
+    point_3D_t *tmp = (point_3D_t *)calloc(src.capacity, sizeof(point_3D_t));
+    if (tmp == NULL)
+    {
+        rc = MALLOC_ERROR;
+    }
+    else
+    {
+        free_point_array(dst);
+
+        memcpy(tmp, src.array, sizeof(point_3D_t) * src.size);
+        dst.array = tmp;
+        dst.capacity = src.capacity;
+        dst.size = src.size;
     }
     return rc;
 }

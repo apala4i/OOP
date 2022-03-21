@@ -9,7 +9,7 @@
 
 struct matrix
 {
-    double** matrix_elements;
+    double** matrix_elements = NULL;
     int rows = 0;
     int columns = 0;
 };
@@ -26,5 +26,9 @@ int init_matrix(matrix_t &matrix, const int rows, const int columns);
 int free_matrix(matrix_t &matrix);
 
 int print_matrix(FILE *file, const matrix_t &matrix);
+
+int copy_matrix(matrix_t &dst, const matrix_t &src);
+
+int copy_matrix_elements(matrix &dst,  const matrix_t &src);
 
 #endif // MATRIX_H

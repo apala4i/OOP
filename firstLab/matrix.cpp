@@ -1,5 +1,6 @@
 #include "matrix.h"
 #include <cstdlib>
+#include <cstring>
 
 // arifmetic operations
 int add_to_matrix(matrix_t &dst, const matrix_t &src)
@@ -124,6 +125,42 @@ int print_matrix(FILE *file, const matrix_t  &matrix_t)
              fprintf(file, "%lf" ,matrix_t.matrix_elements[i][j]);
         }
         fprintf(file, "\n");
+    }
+    return rc;
+}
+
+int copy_matrix(matrix_t &dst, const matrix_t &src)
+{
+    int rc = SUCCESS;
+    matrix_t tmp_matrix;
+    rc = init_matrix(tmp_matrix, src.columns, src.rows);
+    rc = rc == SUCCESS ? copy_matrix_elements(tmp_matrix, src) : rc;
+    if (rc == SUCCESS)
+    {
+        dst.columns = tmp_matrix.columns;
+        dst.rows = tmp_matrix.rows;
+        dst.matrix_elements = tmp_matrix.matrix_elements;
+    }
+    else if (rc == SIZE_ERROR)
+    {
+        free_matrix(tmp_matrix);
+    }
+    return rc;
+}
+
+int copy_matrix_elements(matrix &dst,  const matrix_t &src)
+{
+    int rc = SUCCESS;
+    if (dst.columns != src.columns || dst.rows != src.rows)
+    {
+        rc = SIZE_ERROR;
+    }
+    else
+    {
+        for (int i = 0; i < src.columns; ++i)
+        {
+            memcpy(dst.matrix_elements[i], src.matrix_elements[i], sizeof(double) * src.columns);
+        }
     }
     return rc;
 }
