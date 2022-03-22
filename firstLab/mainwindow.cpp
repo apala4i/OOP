@@ -9,7 +9,6 @@
 #include "controller.h"
 #include "error_show.h"
 
-static figure_t main_figure;
 static QGraphicsScene *scene;
 
 int draw_point(const point_3D_t point);
@@ -101,16 +100,23 @@ int draw_point(const point_3D_t point)
 // scale
 void MainWindow::on_pushButton_3_clicked()
 {
+    bool first_correct = false;
+    bool second_correct = false;
+    bool third_correct = false;
+    double x = ui->lineEdit_4->text().toDouble(&first_correct);
+    double y = ui->lineEdit_5->text().toDouble(&second_correct);
+    double z = ui->lineEdit_6->text().toDouble(&third_correct);
     point_3D_t scale;
-    double x = ui->lineEdit_4->text().toDouble();
-    double y = ui->lineEdit_5->text().toDouble();
-    double z = ui->lineEdit_6->text().toDouble();
     set_point_3D(scale, x, y, z);
 
-    int rc = make_action(SCALE, scale);
+    int rc = first_correct && second_correct && third_correct ? make_action(SCALE, scale) : BAD_DATA;
     if (rc == SUCCESS)
     {
         update_figure(this);
+    }
+    else
+    {
+        show_error(this, rc);
     }
 }
 
@@ -142,15 +148,22 @@ void MainWindow::on_pushButton_4_clicked()
 {
     int rc = SUCCESS;
     point_3D_t rotate;
-    double x = ui->lineEdit_7->text().toDouble();
-    double y = ui->lineEdit_15->text().toDouble();
-    double z = ui->lineEdit_14->text().toDouble();
+    bool first_correct = false;
+    bool second_correct = false;
+    bool third_correct = false;
+    double x = ui->lineEdit_7->text().toDouble(&first_correct);
+    double y = ui->lineEdit_15->text().toDouble(&second_correct);
+    double z = ui->lineEdit_14->text().toDouble(&third_correct);
     set_point_3D(rotate, x, y, z);
 
-    rc = make_action(ROTATE, rotate);
+    rc = first_correct && second_correct && third_correct ? make_action(ROTATE, rotate) : BAD_DATA;
     if (rc == SUCCESS)
     {
         update_figure(this);
+    }
+    else
+    {
+        show_error(this, rc);
     }
 }
 
@@ -158,16 +171,30 @@ void MainWindow::on_pushButton_4_clicked()
 // translate
 void MainWindow::on_pushButton_5_clicked()
 {
-    point_3D_t translate_vector;
-    double x = ui->lineEdit_11->text().toDouble();
-    double y = ui->lineEdit_9->text().toDouble();
-    double z = ui->lineEdit_10->text().toDouble();
-    set_point_3D(translate_vector, x, y, z);
+    bool first_correct = false;
+    bool second_correct = false;
+    bool third_correct = false;
+    double x = ui->lineEdit_11->text().toDouble(&first_correct);
+    double y = ui->lineEdit_9->text().toDouble(&second_correct);
+    double z = ui->lineEdit_10->text().toDouble(&third_correct);
 
-    int rc = make_action(TRANSLATE, translate_vector);
+    int rc = first_correct && second_correct && third_correct ? SUCCESS : BAD_DATA;
+
     if (rc == SUCCESS)
     {
-        update_figure(this);
+        point_3D_t translate_vector;
+        set_point_3D(translate_vector, x, y, z);
+
+        int rc = make_action(TRANSLATE, translate_vector);
+        if (rc == SUCCESS)
+        {
+            update_figure(this);
+        }
+    }
+
+    if (rc != SUCCESS)
+    {
+        show_error(this, rc);
     }
 
 }
@@ -183,14 +210,17 @@ void MainWindow::on_pushButton_7_clicked()
 // change center
 void MainWindow::on_pushButton_2_clicked()
 {
-    double x = ui->lineEdit_13->text().toDouble();
-    double y = ui->lineEdit_8->text().toDouble();
-    double z = ui->lineEdit_12->text().toDouble();
+    bool first_correct = false;
+    bool second_correct = false;
+    bool third_correct = false;
+    double x = ui->lineEdit_13->text().toDouble(&first_correct);
+    double y = ui->lineEdit_8->text().toDouble(&second_correct);
+    double z = ui->lineEdit_12->text().toDouble(&third_correct);
 
+    int rc = first_correct && second_correct && third_correct ? SUCCESS : BAD_DATA;
     point_3D_t new_center;
     set_point_3D(new_center, x, y, z);
-
-    int rc = make_action(SET_CENTER,  new_center);
+    rc = rc == SUCCESS ? make_action(SET_CENTER,  new_center) : rc;
     if (rc != SUCCESS)
     {
         show_error(this, rc);
