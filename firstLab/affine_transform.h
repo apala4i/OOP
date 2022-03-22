@@ -7,6 +7,13 @@
 
 #define PI 3.1415
 
+typedef enum
+{
+    OX,
+    OY,
+    OZ
+}ROTATION_TYPE;
+
 int translate_matrix(matrix_t &matrix, const point_3D_t translate_vector);
 int rotate_matrix_Ox(matrix_t &matrix, const double angle, const point_3D_t center);
 int rotate_matrix_Oy(matrix_t &matrix, const double angle, const point_3D_t center);
