@@ -26,7 +26,6 @@ int translate_matrix(matrix_t &matrix, const point_3D_t translate_vector)
     return rc;
 }
 
-
 int rotate_matrix_O_type(matrix_t &matrix, const double angle, const point_3D_t center, ROTATION_TYPE type)
 {
     // make matrix for move to (0;0;0)

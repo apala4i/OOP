@@ -33,6 +33,7 @@ int mul_matrix(matrix_t &res_matrix, const matrix_t &first_matrix, const matrix_
     }
     else
     {
+        free_matrix(res_matrix);
         init_matrix(res_matrix, first_matrix.rows, second_matrix.columns);
         for (int i = 0; i < res_matrix.rows; ++i)
         {
@@ -60,7 +61,7 @@ void digit_mul_matrix(matrix_t &dstmatrix_t, const double coef)
     }
 }
 
-// create/delete
+
 int init_matrix(matrix_t &matrix, const int rows, const int columns)
 {
     int rc = SUCCESS;
@@ -103,7 +104,7 @@ int free_matrix(matrix_t &matrix)
     }
     else
     {
-        for (int i = 0; i < matrix.columns; i++)
+        for (int i = 0; i < matrix.rows; i++)
         {
             free(matrix.matrix_elements[i]);
         }
@@ -115,16 +116,23 @@ int free_matrix(matrix_t &matrix)
 }
 
 
-int print_matrix(FILE *file, const matrix_t  &matrix_t)
+int print_matrix(FILE *file, const matrix_t &matrix_t)
 {
     int rc = SUCCESS;
-    for (int i = 0; i < matrix_t.rows; ++i)
+    if (file == NULL)
     {
-        for (int j = 0; j < matrix_t.columns; ++j)
+        rc = FILE_ERROR;
+    }
+    else
+    {
+        for (int i = 0; i < matrix_t.rows; ++i)
         {
-             fprintf(file, "%lf" ,matrix_t.matrix_elements[i][j]);
+            for (int j = 0; j < matrix_t.columns; ++j)
+            {
+                 fprintf(file, "%lf" ,matrix_t.matrix_elements[i][j]);
+            }
+            fprintf(file, "\n");
         }
-        fprintf(file, "\n");
     }
     return rc;
 }

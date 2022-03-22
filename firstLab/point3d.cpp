@@ -2,22 +2,6 @@
 #include <stdlib.h>
 #include <cstdio>
 
-int make_point_3D(point_3D_t *point, const double x, const double y, const double z)
-{
-    int rc = SUCCESS;
-    point_3D_t *tmp_point = (point_3D_t *)malloc(sizeof(point_3D_t));
-    if (tmp_point == NULL)
-    {
-        rc = MALLOC_ERROR;
-    }
-    else
-    {
-        point = tmp_point;
-        rc = set_point_3D(*point, x, y, z);
-    }
-    return rc;
-}
-
 int set_point_3D(point_3D_t &point, const double x, const double y, const double z)
 {
     point.x = x;
@@ -44,21 +28,39 @@ int mul_point_3D(point_3D_t &point, const double x, const double y, const double
 
 int mul_point_3D_matrix(point_3D_t &point, const matrix_t &matrix)
 {
-    matrix_t pointMatrix;
-    init_matrix(pointMatrix, 1, 4);
-    pointMatrix.matrix_elements[0][0] = point.x;
-    pointMatrix.matrix_elements[0][1] = point.y;
-    pointMatrix.matrix_elements[0][2] = point.z;
-    pointMatrix.matrix_elements[0][3] = 1.;
-
-    matrix_t resMatrix;
-    mul_matrix(resMatrix, pointMatrix, matrix);
-    point.x = resMatrix.matrix_elements[0][0];
-    point.y = resMatrix.matrix_elements[0][1];
-    point.z = resMatrix.matrix_elements[0][2];
-    return SUCCESS;
+    int rc = SUCCESS;
+    matrix_t point_matrix;
+    rc = matrix_from_point_3D(point_matrix, point);
+    if (rc == SUCCESS)
+    {
+        matrix_t res_matrix;
+        rc = mul_matrix(res_matrix, point_matrix, matrix);
+        if (rc == SUCCESS)
+        {
+            point.x = res_matrix.matrix_elements[0][0];
+            point.y = res_matrix.matrix_elements[0][1];
+            point.z = res_matrix.matrix_elements[0][2];
+        }
+        free_matrix(res_matrix);
+        free_matrix(point_matrix);
+    }
+    return rc;
 }
 
+int matrix_from_point_3D(matrix_t &matrix, const point_3D_t point)
+{
+    int rc = SUCCESS;
+    free_matrix(matrix);
+    rc = init_matrix(matrix, 1,  4);
+    if (rc == SUCCESS)
+    {
+        matrix.matrix_elements[0][0] = point.x;
+        matrix.matrix_elements[0][1] = point.y;
+        matrix.matrix_elements[0][2] = point.z;
+        matrix.matrix_elements[0][3] = 1.;
+    }
+    return rc;
+}
 
 int minus_point_3D(point_3D_t &point)
 {
@@ -78,6 +80,14 @@ int copy_point_3D(point_3D_t &dst, const point_3D_t &src)
 
 int print_point(FILE *file, const point_3D_t &point)
 {
-    fprintf(file, "%lf %lf %lf\n", point.x, point.y, point.z);
-    return SUCCESS;
+    int rc = SUCCESS;
+    if (file != NULL)
+    {
+        fprintf(file, "%lf %lf %lf\n", point.x, point.y, point.z);
+    }
+    else
+    {
+        rc = FILE_ERROR;
+    }
+    return rc;
 }

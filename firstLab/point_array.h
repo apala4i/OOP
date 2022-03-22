@@ -10,7 +10,7 @@
 
 struct arr
 {
-   struct point_3D *array;
+   struct point_3D *array = NULL;
    int capacity = 0;
    int size = 0;
 };

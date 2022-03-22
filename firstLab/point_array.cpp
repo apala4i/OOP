@@ -28,7 +28,7 @@ int init_point_array(point_arr_t &data, int capacity = START_SIZE)
 int free_point_array(point_arr_t &data)
 {
     int rc = SUCCESS;
-    if (data.capacity < 1)
+    if (data.capacity < 0)
     {
         rc = SIZE_ERROR;
     }

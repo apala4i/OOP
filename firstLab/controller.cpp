@@ -23,7 +23,8 @@ int make_action(const ACTIONS action, const point_3D_t value)
         case GET_FIGURE:
             rc = init_figure();
             break;
-        case UNKNOWN:
+        default:
+            rc = BAD_ARG_ERROR;
             break;
     }
     return rc;
