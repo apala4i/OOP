@@ -13,7 +13,7 @@ SOURCES += \
     controller.cpp \
     error_show.cpp \
     figure.cpp \
-    inputLoader.cpp \
+    loader.cpp \
     main.cpp \
     mainwindow.cpp \
     matrix.cpp \
@@ -26,7 +26,7 @@ HEADERS += \
     error_show.h \
     errors.h \
     figure.h \
-    inputLoader.h \
+    loader.h \
     mainwindow.h \
     matrix.h \
     point3d.h \

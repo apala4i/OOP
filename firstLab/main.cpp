@@ -1,7 +1,7 @@
  #include "mainwindow.h"
 #include "matrix.h"
 #include "figure.h"
-#include "inputLoader.h"
+#include "loader.h"
 #include <cstdio>
  #include <QApplication>
 

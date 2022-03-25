@@ -1,6 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "inputLoader.h"
+#include "loader.h"
 #include "affine_transform.h"
 #include "figure.h"
 #include <QApplication>
@@ -124,7 +124,7 @@ void update_figure(QMainWindow *window)
 {
     int rc = SUCCESS;
     figure_t figure;
-    rc = rc == SUCCESS ? make_action(GET_FIGURE, figure) : rc;
+    rc = rc == SUCCESS ? make_action(figure, GET_FIGURE) : rc;
     if (rc != SUCCESS)
     {
         show_error(window, rc);

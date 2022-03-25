@@ -30,7 +30,7 @@ int make_action(const ACTIONS action, const point_3D_t value)
     return rc;
 }
 
-int make_action(const ACTIONS action, figure_t &dst)
+int make_action(figure_t &dst, const ACTIONS action)
 {
     int rc = SUCCESS;
 
@@ -62,7 +62,7 @@ int translate_figure(const point_3D_t values)
     int rc = SUCCESS;
     matrix_t matrix;
     rc = figure_is_empty(figure) == false ? SUCCESS : EMPTY_FIGURE;
-    rc = rc == SUCCESS ? translate_matrix(matrix, values) : rc;
+    rc = rc == SUCCESS ? move_matrix(matrix, values) : rc;
     rc = rc == SUCCESS ? add_transformation(figure, matrix) : rc;
     rc = rc == SUCCESS ? free_matrix(matrix) : rc;
     return rc;

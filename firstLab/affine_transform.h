@@ -14,7 +14,7 @@ typedef enum
     OZ
 }ROTATION_TYPE;
 
-int translate_matrix(matrix_t &matrix, const point_3D_t translate_vector);
+int move_matrix(matrix_t &matrix, const point_3D_t translate_vector);
 int scale_matrix(matrix_t &matrix, const point_3D_t scale_coefficient, const point_3D_t center);
 int rotate_matrix(matrix_t &matrix, const point_3D_t rotate_angles, const point_3D_t center);
 
