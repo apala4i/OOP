@@ -41,7 +41,8 @@ MainWindow::~MainWindow()
 // load figure
 void MainWindow::on_pushButton_6_clicked()
 {
-    int rc = make_action(LOAD_FIGURE);
+    data_t data = {.file_path = (char *)FILE_PATH};
+    int rc = make_action(data, LOAD_FIGURE);
     if (rc == SUCCESS)
     {
         update_figure(this);
@@ -108,8 +109,9 @@ void MainWindow::on_pushButton_3_clicked()
     double z = ui->lineEdit_6->text().toDouble(&third_correct);
     point_3D_t scale;
     set_point_3D(scale, x, y, z);
+    data_t data = {.scale_values = scale};
 
-    int rc = first_correct && second_correct && third_correct ? make_action(SCALE, scale) : BAD_DATA;
+    int rc = first_correct && second_correct && third_correct ? make_action(data, SCALE) : BAD_DATA;
     if (rc == SUCCESS)
     {
         update_figure(this);
@@ -124,16 +126,17 @@ void update_figure(QMainWindow *window)
 {
     int rc = SUCCESS;
     figure_t figure;
-    rc = rc == SUCCESS ? make_action(figure, GET_FIGURE) : rc;
+    data_t data = {.figure = figure};
+    rc = rc == SUCCESS ? make_action(data, GET_FIGURE) : rc;
     if (rc != SUCCESS)
     {
         show_error(window, rc);
     }
     else
     {
-        repaint_figure(figure);
+        repaint_figure(data.figure);
     }
-    free_figure(figure);
+    free_figure(data.figure);
 }
 
 void repaint_figure(figure_t figure)
@@ -155,8 +158,9 @@ void MainWindow::on_pushButton_4_clicked()
     double y = ui->lineEdit_15->text().toDouble(&second_correct);
     double z = ui->lineEdit_14->text().toDouble(&third_correct);
     set_point_3D(rotate, x, y, z);
+    data_t data = {.angles_values = rotate};
 
-    rc = first_correct && second_correct && third_correct ? make_action(ROTATE, rotate) : BAD_DATA;
+    rc = first_correct && second_correct && third_correct ? make_action(data, ROTATE) : BAD_DATA;
     if (rc == SUCCESS)
     {
         update_figure(this);
@@ -184,8 +188,9 @@ void MainWindow::on_pushButton_5_clicked()
     {
         point_3D_t translate_vector;
         set_point_3D(translate_vector, x, y, z);
+        data_t data = {.translate_values = translate_vector};
 
-        int rc = make_action(TRANSLATE, translate_vector);
+        int rc = make_action(data, TRANSLATE);
         if (rc == SUCCESS)
         {
             update_figure(this);
@@ -203,6 +208,13 @@ void MainWindow::on_pushButton_5_clicked()
 // clear canvas
 void MainWindow::on_pushButton_7_clicked()
 {
+    int rc = SUCCESS;
+    data_t data;
+    rc = make_action(data, FREE_FIGURE);
+    if (rc != SUCCESS)
+    {
+        show_error(this, rc);
+    }
     scene->clear();
 }
 
@@ -220,7 +232,8 @@ void MainWindow::on_pushButton_2_clicked()
     int rc = first_correct && second_correct && third_correct ? SUCCESS : BAD_DATA;
     point_3D_t new_center;
     set_point_3D(new_center, x, y, z);
-    rc = rc == SUCCESS ? make_action(SET_CENTER,  new_center) : rc;
+    data_t data = {.center_values = new_center};
+    rc = rc == SUCCESS ? make_action(data, SET_CENTER) : rc;
     if (rc != SUCCESS)
     {
         show_error(this, rc);

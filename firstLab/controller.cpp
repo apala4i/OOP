@@ -1,91 +1,37 @@
 #include "controller.h"
+#include "actions.h"
 
-static figure_t figure;
-
-
-int make_action(const ACTIONS action, const point_3D_t value)
+int make_action(data_t &data, const ACTIONS action)
 {
+    static figure_t figure;
+
     int rc = SUCCESS;
     switch (action)
     {
         case ROTATE:
-            rc = rotate_figure(value);
+            rc = rotate_figure(figure, data.angles_values);
             break;
         case TRANSLATE:
-            rc =  translate_figure(value);
+            rc =  translate_figure(figure, data.translate_values);
             break;
         case SCALE:
-            rc = scale_figure(value);
+            rc = scale_figure(figure, data.scale_values);
             break;
         case SET_CENTER:
-            rc = set_center(value);
+            rc = set_center(figure, data.center_values);
             break;
         case GET_FIGURE:
-            rc = init_figure();
+            rc = get_figure(data.figure, figure);
+            break;
+        case LOAD_FIGURE:
+            rc = load_figure(figure, data.file_path);
+            break;
+        case FREE_FIGURE:
+            rc = free_figure(figure);
             break;
         default:
             rc = BAD_ARG_ERROR;
             break;
     }
     return rc;
-}
-
-int make_action(figure_t &dst, const ACTIONS action)
-{
-    int rc = SUCCESS;
-
-    rc = action == GET_FIGURE ? figure_copy(dst, figure) : WRONG_COMMAND;
-
-    return rc;
-}
-
-int make_action(const ACTIONS action)
-{
-    int rc = SUCCESS;
-    rc = action == LOAD_FIGURE ? load_from_file(figure, FILE_PATH) : WRONG_COMMAND;
-    return rc;
-}
-
-int rotate_figure(const point_3D_t values)
-{
-    int rc = SUCCESS;
-    matrix_t matrix;
-    rc = figure_is_empty(figure) == false ? SUCCESS : EMPTY_FIGURE;
-    rc = rc == SUCCESS ? rotate_matrix(matrix, values, figure.figure_center) : rc;
-    rc = rc == SUCCESS ? add_transformation(figure, matrix) : rc;
-    rc = rc == SUCCESS ? free_matrix(matrix) : rc;
-    return rc;
-}
-
-int translate_figure(const point_3D_t values)
-{
-    int rc = SUCCESS;
-    matrix_t matrix;
-    rc = figure_is_empty(figure) == false ? SUCCESS : EMPTY_FIGURE;
-    rc = rc == SUCCESS ? move_matrix(matrix, values) : rc;
-    rc = rc == SUCCESS ? add_transformation(figure, matrix) : rc;
-    rc = rc == SUCCESS ? free_matrix(matrix) : rc;
-    return rc;
-}
-
-int scale_figure(const point_3D_t values)
-{
-    int rc = SUCCESS;
-    matrix_t matrix;
-    rc = figure_is_empty(figure) == false ? SUCCESS : EMPTY_FIGURE;
-    rc = rc == SUCCESS ? scale_matrix(matrix, values, figure.figure_center) : rc;
-    rc = rc == SUCCESS ? add_transformation(figure, matrix) : rc;
-    rc = rc == SUCCESS ? free_matrix(matrix) : rc;
-    return rc;
-}
-
-
-int set_center(const point_3D_t new_center)
-{
-    return copy_point_3D(figure.figure_center, new_center);
-}
-
-int init_figure()
-{
-    return load_from_file(figure, FILE_PATH);
 }

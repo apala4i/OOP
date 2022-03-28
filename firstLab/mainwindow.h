@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 
+#define FILE_PATH "D:\\VUZ\\OOP\\lab_01_\\OOP\\firstLab\\test.txt"
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
