@@ -1,11 +1,20 @@
 #ifndef ACTIONS_H
 #define ACTIONS_H
+#include "figure.h"
+#include "point3d.h"
 
+int rotate_figure(figure_t &figure, const point_3D_t values);
 
-class actions
-{
-public:
-    actions();
-};
+int translate_figure(figure_t &figure, const point_3D_t values);
 
-#endif // ACTIONS_H
+int scale_figure(figure_t &figure, const point_3D_t value);
+
+int init_figure(figure_t &figure);
+
+int set_center(figure_t &figure, const point_3D_t new_center);
+
+int load_figure(figure_t &figure, char *FILE_PATH);
+
+int get_figure(figure_t &dst, const figure_t &figure);
+
+#endif

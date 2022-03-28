@@ -6,14 +6,14 @@
 #include "affine_transform.h"
 #include "inputLoader.h"
 
-#define FILE_PATH "/home/chel/2022/University/OOP/lab_01/firstLab/test.txt"
-
 typedef struct
 {
     point_3D_t angles_values;
     point_3D_t scale_values;
     point_3D_t translate_values;
-}data;
+    point_3D_t center_values;
+    char *file_path;
+}data_t;
 
 
 typedef enum
@@ -27,20 +27,6 @@ typedef enum
     UNKNOWN
 }ACTIONS;
 
-int make_action(const ACTIONS action, const point_3D_t value);
-
-int make_action(const ACTIONS action);
-
-int make_action(figure_t &dst, const ACTIONS action);
-
-int rotate_figure(const point_3D_t values);
-
-int translate_figure(const point_3D_t values);
-
-int scale_figure(const point_3D_t value);
-
-int init_figure();
-
-int set_center(const point_3D_t new_center);
+int make_action(const ACTIONS action, const data_t &data);
 
 #endif
