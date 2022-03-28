@@ -107,8 +107,8 @@ int fill_matrix_rotate_Oy(matrix_t &matrix, const double angle)
     else
     {
         matrix.matrix_elements[0][0] = cos(angle * PI /180);
-        matrix.matrix_elements[0][2] = -sin(angle * PI / 180);
-        matrix.matrix_elements[2][0] = sin(angle * PI / 180);
+        matrix.matrix_elements[0][2] = sin(angle * PI / 180);
+        matrix.matrix_elements[2][0] = -sin(angle * PI / 180);
         matrix.matrix_elements[2][2] = cos(angle * PI / 180);
         matrix.matrix_elements[1][1] = 1;
         matrix.matrix_elements[3][3] = 1;

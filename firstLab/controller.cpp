@@ -30,7 +30,7 @@ int make_action(const ACTIONS action, const point_3D_t value)
     return rc;
 }
 
-int make_action(const ACTIONS action, figure_t &dst)
+int make_action(figure_t &dst, const ACTIONS action)
 {
     int rc = SUCCESS;
 

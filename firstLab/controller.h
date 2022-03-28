@@ -8,6 +8,12 @@
 
 #define FILE_PATH "/home/chel/2022/University/OOP/lab_01/firstLab/test.txt"
 
+typedef struct
+{
+    point_3D_t angles_values;
+    point_3D_t scale_values;
+    point_3D_t translate_values;
+}data;
 
 
 typedef enum
@@ -25,7 +31,7 @@ int make_action(const ACTIONS action, const point_3D_t value);
 
 int make_action(const ACTIONS action);
 
-int make_action(const ACTIONS action, figure_t &dst);
+int make_action(figure_t &dst, const ACTIONS action);
 
 int rotate_figure(const point_3D_t values);
 
