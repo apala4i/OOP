@@ -25,6 +25,7 @@ typedef enum
     SET_CENTER,
     GET_FIGURE,
     LOAD_FIGURE,
+    FREE_FIGURE,
     UNKNOWN
 }ACTIONS;
 

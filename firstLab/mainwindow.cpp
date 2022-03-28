@@ -208,6 +208,13 @@ void MainWindow::on_pushButton_5_clicked()
 // clear canvas
 void MainWindow::on_pushButton_7_clicked()
 {
+    int rc = SUCCESS;
+    data_t data;
+    rc = make_action(data, FREE_FIGURE);
+    if (rc != SUCCESS)
+    {
+        show_error(this, rc);
+    }
     scene->clear();
 }
 

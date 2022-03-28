@@ -26,6 +26,9 @@ int make_action(data_t &data, const ACTIONS action)
         case LOAD_FIGURE:
             rc = load_figure(figure, data.file_path);
             break;
+        case FREE_FIGURE:
+            rc = free_figure(figure);
+            break;
         default:
             rc = BAD_ARG_ERROR;
             break;

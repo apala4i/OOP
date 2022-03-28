@@ -119,8 +119,8 @@ int print_figure(FILE *file, const figure_t figure)
 int free_figure(figure_t &figure)
 {
     int rc = SUCCESS;
-    free_matrix(figure.links);
-    free_point_array(figure.points);
+    rc = free_matrix(figure.links);
+    rc = rc != SUCCESS ? rc: free_point_array(figure.points);
     return rc;
 }
 
