@@ -33,6 +33,7 @@ int load_from_file(figure_t &figure, const char *file_name)
         {
             rc = figure_copy(figure, tmp_figure);
         }
+        free_figure(tmp_figure);
         fclose(input_file);
     }
     return rc;

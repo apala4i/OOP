@@ -13,9 +13,16 @@ int add_transformation(figure_t &figure, const matrix_t &transformation)
     }
     else
     {
-        for (int i = 0;i < figure.points.size; ++i)
+        figure_t tmp;
+        rc = figure_copy(tmp, figure);
+        for (int i = 0;rc == SUCCESS && i < tmp.points.size; ++i)
         {
-            mul_point_3D_matrix(figure.points.array[i], transformation);
+            rc = mul_point_3D_matrix(tmp.points.array[i], transformation);
+        }
+        if (rc == SUCCESS)
+        {
+            rc = figure_copy(figure, tmp);
+            free_figure(tmp);
         }
     }
 

@@ -8,10 +8,10 @@
 
 typedef struct data
 {
-    point_3D_t angles_values = {0, 0, 0};
-    point_3D_t scale_values = {1, 1, 1};
-    point_3D_t translate_values = {0, 0, 0};
-    point_3D_t center_values = {0, 0, 0};
+    point_3D_t angles_values;
+    point_3D_t scale_values;
+    point_3D_t translate_values;
+    point_3D_t center_values;
     figure_t figure;
     char *file_path;
 }data_t;

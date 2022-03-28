@@ -126,7 +126,8 @@ void update_figure(QMainWindow *window)
 {
     int rc = SUCCESS;
     figure_t figure;
-    data_t data = {.figure = figure};
+    data_t data;
+    data.figure = figure;
     rc = rc == SUCCESS ? make_action(data, GET_FIGURE) : rc;
     if (rc != SUCCESS)
     {
@@ -158,7 +159,8 @@ void MainWindow::on_pushButton_4_clicked()
     double y = ui->lineEdit_15->text().toDouble(&second_correct);
     double z = ui->lineEdit_14->text().toDouble(&third_correct);
     set_point_3D(rotate, x, y, z);
-    data_t data = {.angles_values = rotate};
+    data_t data;
+    data.angles_values = rotate;
 
     rc = first_correct && second_correct && third_correct ? make_action(data, ROTATE) : BAD_DATA;
     if (rc == SUCCESS)

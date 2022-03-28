@@ -109,6 +109,7 @@ int free_matrix(matrix_t &matrix)
             free(matrix.matrix_elements[i]);
         }
         free(matrix.matrix_elements);
+        matrix.matrix_elements = NULL;
         matrix.rows = 0;
         matrix.columns = 0;
     }

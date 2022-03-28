@@ -10,13 +10,14 @@ int init_point_array(point_arr_t &data, int capacity = START_SIZE)
     }
     else
     {
-        data.array = (point_3D_t *)malloc(sizeof (point_3D_t) * capacity);
-        if (data.array == NULL)
+        point_3D_t *tmp = (point_3D_t *)malloc(sizeof (point_3D_t) * capacity);
+        if (tmp == NULL)
         {
             rc = MALLOC_ERROR;
         }
         else
         {
+            data.array = tmp;
             data.capacity = capacity;
             data.size = 0;
         }
@@ -35,6 +36,7 @@ int free_point_array(point_arr_t &data)
     else
     {
         free(data.array);
+        data.array = NULL;
         data.size = 0;
         data.capacity = 0;
     }
@@ -44,16 +46,9 @@ int free_point_array(point_arr_t &data)
 int push_back_point_by_cord(point_arr_t &data, double x, double y, double z)
 {
     int rc = SUCCESS;
-    point_3D_t *adding_point = (point_3D_t *)malloc(sizeof(point_3D_t));
-    if (adding_point == NULL)
-    {
-        rc = MALLOC_ERROR;
-    }
-    else
-    {
-        set_point_3D(*adding_point, x, y, z);
-        rc = push_back_point(data, *adding_point);
-    }
+    point_3D_t adding_point;
+    set_point_3D(adding_point, x, y, z);
+    rc = push_back_point(data, adding_point);
     return rc;
 }
 
@@ -74,7 +69,7 @@ int push_back_point(point_arr_t &data, const point_3D_t &point)
     }
     if (rc == SUCCESS)
     {
-        data.array[data.size++] = point;
+        set_point_3D(data.array[data.size++], point.x, point.y, point.z);
     }
 
     return rc;

@@ -17,8 +17,11 @@ int rotate_figure(figure_t &figure, const point_3D_t values)
     matrix_t matrix;
     rc = figure_is_empty(figure) == false ? SUCCESS : EMPTY_FIGURE;
     rc = rc == SUCCESS ? rotate_matrix(matrix, values, figure.figure_center) : rc;
-    rc = rc == SUCCESS ? add_transformation(figure, matrix) : rc;
-    rc = rc == SUCCESS ? free_matrix(matrix) : rc;
+    if (rc == SUCCESS)
+    {
+        rc = add_transformation(figure, matrix);
+        free_matrix(matrix);
+    }
     return rc;
 }
 
@@ -28,8 +31,11 @@ int translate_figure(figure_t &figure, const point_3D_t values)
     matrix_t matrix;
     rc = figure_is_empty(figure) == false ? SUCCESS : EMPTY_FIGURE;
     rc = rc == SUCCESS ? translate_matrix(matrix, values) : rc;
-    rc = rc == SUCCESS ? add_transformation(figure, matrix) : rc;
-    rc = rc == SUCCESS ? free_matrix(matrix) : rc;
+    if (rc == SUCCESS)
+    {
+        rc = add_transformation(figure, matrix);
+        free_matrix(matrix);
+    }
     return rc;
 }
 
@@ -39,8 +45,11 @@ int scale_figure(figure_t &figure, const point_3D_t values)
     matrix_t matrix;
     rc = figure_is_empty(figure) == false ? SUCCESS : EMPTY_FIGURE;
     rc = rc == SUCCESS ? scale_matrix(matrix, values, figure.figure_center) : rc;
-    rc = rc == SUCCESS ? add_transformation(figure, matrix) : rc;
-    rc = rc == SUCCESS ? free_matrix(matrix) : rc;
+    if (rc == SUCCESS)
+    {
+        rc = add_transformation(figure, matrix);
+        free_matrix(matrix);
+    }
     return rc;
 }
 
