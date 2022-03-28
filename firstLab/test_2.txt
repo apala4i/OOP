@@ -1,3 +1,4 @@
 10 10 10 -> ;
 20 20 20 -> ;
 30 30 30 -> ;
+#define FILE_PATH "D:\\VUZ\\OOP\\lab_01_\\OOP\\firstLab\\test.txt"
