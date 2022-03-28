@@ -5,8 +5,6 @@
 #include "point3d.h"
 #include <cmath>
 
-#define PI 3.1415
-
 typedef enum
 {
     OX,

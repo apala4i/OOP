@@ -91,10 +91,10 @@ int fill_matrix_rotate_Ox(matrix_t &matrix, const double angle)
     }
     else
     {
-        matrix.matrix_elements[1][1] = cos(angle * PI / 180);
-        matrix.matrix_elements[1][2] = sin(angle * PI / 180);
-        matrix.matrix_elements[2][1] = -sin(angle * PI / 180);
-        matrix.matrix_elements[2][2] = cos(angle * PI / 180);
+        matrix.matrix_elements[1][1] = cos(angle * M_PI / 180);
+        matrix.matrix_elements[1][2] = sin(angle * M_PI / 180);
+        matrix.matrix_elements[2][1] = -sin(angle * M_PI / 180);
+        matrix.matrix_elements[2][2] = cos(angle * M_PI / 180);
         matrix.matrix_elements[0][0] = 1;
         matrix.matrix_elements[3][3] = 1;
     }
@@ -111,10 +111,10 @@ int fill_matrix_rotate_Oy(matrix_t &matrix, const double angle)
     }
     else
     {
-        matrix.matrix_elements[0][0] = cos(angle * PI /180);
-        matrix.matrix_elements[0][2] = sin(angle * PI / 180);
-        matrix.matrix_elements[2][0] = -sin(angle * PI / 180);
-        matrix.matrix_elements[2][2] = cos(angle * PI / 180);
+        matrix.matrix_elements[0][0] = cos(angle * M_PI /180);
+        matrix.matrix_elements[0][2] = sin(angle * M_PI / 180);
+        matrix.matrix_elements[2][0] = -sin(angle * M_PI / 180);
+        matrix.matrix_elements[2][2] = cos(angle * M_PI / 180);
         matrix.matrix_elements[1][1] = 1;
         matrix.matrix_elements[3][3] = 1;
     }
@@ -131,10 +131,10 @@ int fill_matrix_rotate_Oz(matrix_t &matrix, const double angle)
     }
     else
     {
-        matrix.matrix_elements[0][0] = cos(angle * PI / 180);
-        matrix.matrix_elements[0][1] = sin(angle * PI / 180);
-        matrix.matrix_elements[1][0] = -sin(angle * PI / 180);
-        matrix.matrix_elements[1][1] = cos(angle * PI / 180);
+        matrix.matrix_elements[0][0] = cos(angle * M_PI / 180);
+        matrix.matrix_elements[0][1] = sin(angle * M_PI / 180);
+        matrix.matrix_elements[1][0] = -sin(angle * M_PI / 180);
+        matrix.matrix_elements[1][1] = cos(angle * M_PI / 180);
         matrix.matrix_elements[2][2] = 1;
         matrix.matrix_elements[3][3] = 1;
     }
