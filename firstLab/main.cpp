@@ -1,9 +1,9 @@
- #include "mainwindow.h"
+#include "mainwindow.h"
 #include "matrix.h"
 #include "figure.h"
 #include "loader.h"
 #include <cstdio>
- #include <QApplication>
+#include <QApplication>
 
 int main(int argc, char *argv[])
 {
