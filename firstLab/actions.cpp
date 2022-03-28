@@ -48,8 +48,3 @@ int set_center(figure_t &figure, const point_3D_t new_center)
 {
     return copy_point_3D(figure.figure_center, new_center);
 }
-
-int init_figure(figure_t &figure)
-{
-    return load_from_file(figure, FILE_PATH);
-}

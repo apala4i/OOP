@@ -1,7 +1,7 @@
 #include "controller.h"
 #include "actions.h"
 
-int make_action(const ACTIONS action, const data_t &data)
+int make_action(data_t &data, const ACTIONS action)
 {
     static figure_t figure;
 
@@ -21,7 +21,7 @@ int make_action(const ACTIONS action, const data_t &data)
             rc = set_center(figure, data.center_values);
             break;
         case GET_FIGURE:
-            rc = init_figure(figure);
+            rc = get_figure(data.figure, figure);
             break;
         case LOAD_FIGURE:
             rc = load_figure(figure, data.file_path);

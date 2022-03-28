@@ -1,0 +1,12 @@
+release/actions.o
+release/affine_transform.o
+release/controller.o
+release/error_show.o
+release/figure.o
+release/inputLoader.o
+release/main.o
+release/mainwindow.o
+release/matrix.o
+release/point3d.o
+release/point_array.o
+release/moc_mainwindow.o
