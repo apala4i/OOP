@@ -15,9 +15,9 @@ int add_transformation(figure_t &figure, const matrix_t &transformation)
     {
         figure_t tmp;
         rc = figure_copy(tmp, figure);
-        for (int i = 0;rc == SUCCESS && i < tmp.points.size; ++i)
+        for (int i = 0;rc == SUCCESS && i < get_size_point_array(tmp.points); ++i)
         {
-            rc = mul_point_3D_matrix(tmp.points.array[i], transformation);
+            rc = rc == SUCCESS ? mul_point_on_matrix_by_ind(tmp.points, i, transformation) : rc;
         }
         if (rc == SUCCESS)
         {
@@ -31,7 +31,7 @@ int add_transformation(figure_t &figure, const matrix_t &transformation)
 
 int get_points_count(int &count, const figure_t &figure)
 {
-    count = figure.points.size;
+    count = get_size_point_array(figure.points);
     return SUCCESS;
 }
 
@@ -48,19 +48,22 @@ int add_point_to_figure(figure_t &figure, const double x, const double y, const 
 int init_links_matrix(figure_t &figure)
 {
     int rc = SUCCESS;
-    if (figure.points.size < 1)
+    int size = get_size_point_array(figure.points);
+    if (size < 1)
     {
         rc = SIZE_ERROR;
     }
     else
     {
         matrix_t tmp_matrix;
-        rc = init_matrix(tmp_matrix, figure.points.size, figure.points.size);
+        rc = init_matrix(tmp_matrix, size, size);
         if (rc == SUCCESS)
         {
-            figure.links.columns = tmp_matrix.columns;
-            figure.links.matrix_elements = tmp_matrix.matrix_elements;
-            figure.links.rows = tmp_matrix.rows;
+            set_matrix(figure.links, tmp_matrix);
+        }
+        else
+        {
+            free_matrix(figure.links);
         }
     }
     return rc;
@@ -73,13 +76,11 @@ int init_links_matrix(figure_t &figure, const int &size)
     rc = init_matrix(tmp_matrix, size, size);
     if (rc == SUCCESS)
     {
-        if (figure.links.columns != 0)
+        if (get_columns_matrix(figure.links) != 0)
         {
-            free(figure.links.matrix_elements);
+            free_matrix(figure.links);
         }
-        figure.links.columns = tmp_matrix.columns;
-        figure.links.matrix_elements = tmp_matrix.matrix_elements;
-        figure.links.rows = tmp_matrix.rows;
+        set_matrix(figure.links, tmp_matrix);
     }
     return rc;
 }
@@ -87,8 +88,9 @@ int init_links_matrix(figure_t &figure, const int &size)
 int add_link_to_figure(figure_t &figure, const int from, const int to)
 {
     int rc = SUCCESS;
-    int columns = figure.links.columns;
-    int rows = figure.links.rows;
+    int columns = get_columns_matrix(figure.links);
+    int rows = get_rows_matrix(figure.links);
+
     rc = (rc == 0 && columns != rows) ? SIZE_ERROR : SUCCESS;
     rc = (rc == 0 && rows == 0) ? EMPTY_DATA_ERROR : SUCCESS;
     rc = (rc == 0 && rows < 0) ? BAD_DATA : SUCCESS;

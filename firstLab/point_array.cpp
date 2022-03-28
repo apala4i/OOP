@@ -162,3 +162,8 @@ int copy_point_array(point_arr_t &dst, const point_arr_t &src)
     }
     return rc;
 }
+
+int mul_point_on_matrix_by_ind(point_arr_t &point_arr, const int index, const matrix_t &matrix)
+{
+    return mul_point_3D_matrix(point_arr.array[index], matrix);
+}

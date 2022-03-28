@@ -31,4 +31,10 @@ int copy_matrix(matrix_t &dst, const matrix_t &src);
 
 int copy_matrix_elements(matrix &dst,  const matrix_t &src);
 
+int set_matrix(matrix_t &dst, const matrix_t &src);
+
+int get_rows_matrix(const matrix_t &src);
+
+int get_columns_matrix(const matrix_t &src);
+
 #endif // MATRIX_H

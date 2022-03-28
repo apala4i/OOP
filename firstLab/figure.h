@@ -40,4 +40,6 @@ int print_figure(FILE *file, const figure_t figure);
 
 bool figure_is_empty(figure_t fugure);
 
+
+
 #endif // FIGURE_H

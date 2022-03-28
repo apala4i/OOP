@@ -173,3 +173,22 @@ int copy_matrix_elements(matrix &dst,  const matrix_t &src)
     }
     return rc;
 }
+
+int set_matrix(matrix_t &dst, const matrix_t &src)
+{
+    free_matrix(dst);
+    dst.columns = src.columns;
+    dst.matrix_elements = src.matrix_elements;
+    dst.rows = src.rows;
+    return SUCCESS;
+}
+
+int get_rows_matrix(const matrix_t &src)
+{
+    return src.rows;
+}
+
+int get_columns_matrix(const matrix_t &src)
+{
+    return src.columns;
+}

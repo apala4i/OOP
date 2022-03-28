@@ -33,9 +33,10 @@ int get_size_point_array(const point_arr_t &point_arr);
 
 int copy_point_array(point_arr_t &dst, const point_arr_t &src);
 
-double get_el_by_index_point_array(const point_arr_t &point_arr);
+int get_by_ind_point_array(point_3D_t &value, const int ind, const point_arr_t &point_arr);
 
 bool point_array_empty(const point_arr_t &point_arr);
 
+int mul_point_on_matrix_by_ind(point_arr_t &point_arr, const int index, const matrix_t &matrix);
 
 #endif // POINT_ARRAY_H
