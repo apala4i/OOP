@@ -3,7 +3,7 @@
 #include "point_array.h"
 #include "point_array.h"
 
-int add_transformation(figure_t &figure, const matrix_t &transformation)
+int add_transformation(figure_t &figure, matrix_t &transformation)
 {
     int rc = SUCCESS;
 
@@ -23,9 +23,9 @@ int add_transformation(figure_t &figure, const matrix_t &transformation)
         {
             rc = figure_copy(figure, tmp);
             free_figure(tmp);
+            free_matrix(transformation);
         }
     }
-
     return rc;
 }
 

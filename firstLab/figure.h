@@ -16,7 +16,7 @@ struct figure
 };
 typedef struct figure figure_t;
 
-int add_transformation(figure_t &figure, const matrix_t &transformation);
+int add_transformation(figure_t &figure, matrix_t &transformation);
 
 int add_point_to_figure(figure_t &figure, const point_3D_t point);
 
