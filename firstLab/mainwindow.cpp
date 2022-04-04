@@ -11,15 +11,24 @@
 
 static QGraphicsScene *scene;
 
-int draw_point(const point_3D_t point);
+int draw_point(const point_2D_t point);
 
-int draw_figure_points(const figure_t &figure);
+int draw_figure_points(const model_t &model);
 
-int draw_figure_links(const figure_t &figure);
+int draw_figure_links(const model_t &model);
 
 void update_figure(QMainWindow *window);
 
-void repaint_figure(figure_t figure);
+void repaint_figure(model_t model);
+
+int free_model(model_t &model)
+{
+    int rc = SUCCESS;
+    rc = free_matrix(model.links);
+    if (rc == SUCCESS)
+        free(model.point_array);
+    return rc;
+}
 
 point_3D_t scale;
 
@@ -49,48 +58,48 @@ void MainWindow::on_pushButton_6_clicked()
     }
 }
 
-int draw_figure(const figure_t &figure)
+int draw_figure(const model_t &model)
 {
     int rc = SUCCESS;
-    rc = draw_figure_points(figure);
-    rc = rc == SUCCESS ? draw_figure_links(figure) : rc;
+    rc = draw_figure_points(model);
+    rc = rc == SUCCESS ? draw_figure_links(model) : rc;
     return rc;
 }
 
-int draw_figure_points(const figure_t &figure)
+int draw_figure_points(const model_t &model)
 {
     int rc = SUCCESS;
-    if (figure.points.size == 0)
+    if (model.point_counts == 0)
     {
         rc = EMPTY_DATA_ERROR;
     }
     else
     {
-        for (int i = 0; i < get_size_point_array(figure.points); ++i)
+        for (int i = 0; i < model.point_counts; ++i)
         {
-            draw_point(figure.points.array[i]);
+            draw_point(model.point_array[i]);
         }
     }
     return rc;
 }
 
-int draw_figure_links(const figure_t &figure)
+int draw_figure_links(const model_t &model)
 {
     int rc = SUCCESS;
-    for (int i = 0; i < figure.links.columns - 1; ++i)
+    for (int i = 0; i < model.links.columns - 1; ++i)
     {
-        for (int j = i + 1; j < figure.links.columns; ++j)
+        for (int j = i + 1; j < model.links.columns; ++j)
         {
-            if (figure.links.matrix_elements[i][j] >= 0.0001)
+            if (model.links.matrix_elements[i][j] >= 0.0001)
             {
-                scene->addLine(figure.points.array[i].x, figure.points.array[i].y, figure.points.array[j].x, figure.points.array[j].y);
+                scene->addLine(model.point_array[i].x, model.point_array[i].y, model.point_array[j].x, model.point_array[j].y);
             }
         }
     }
     return rc;
 }
 
-int draw_point(const point_3D_t point)
+int draw_point(const point_2D_t point)
 {
     int r = 5;
     scene->addEllipse(point.x - r/2, point.y - r/2, r, r);
@@ -125,9 +134,9 @@ void MainWindow::on_pushButton_3_clicked()
 void update_figure(QMainWindow *window)
 {
     int rc = SUCCESS;
-    figure_t figure;
+    model_t model;
     data_t data;
-    data.figure = figure;
+    data.model = model;
     rc = rc == SUCCESS ? make_action(data, GET_FIGURE) : rc;
     if (rc != SUCCESS)
     {
@@ -135,15 +144,15 @@ void update_figure(QMainWindow *window)
     }
     else
     {
-        repaint_figure(data.figure);
+        repaint_figure(data.model);
     }
-    free_figure(data.figure);
+    free_model(data.model);
 }
 
-void repaint_figure(figure_t figure)
+void repaint_figure(model_t model)
 {
     scene->clear();
-    draw_figure(figure);
+    draw_figure(model);
 }
 
 

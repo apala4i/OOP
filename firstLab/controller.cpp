@@ -21,7 +21,7 @@ int make_action(data_t &data, const ACTIONS action)
             rc = set_center(figure, data.center_values);
             break;
         case GET_FIGURE:
-            rc = get_figure(data.figure, figure);
+            rc = get_figure(data.model, figure);
             break;
         case LOAD_FIGURE:
             rc = load_figure(figure, data.file_path);

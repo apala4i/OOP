@@ -1,9 +1,35 @@
 #include "actions.h"
 #include "controller.h"
+#include "error.h"
+#include "matrix.h"
 
-int get_figure(figure_t &dst, const figure_t &figure)
+int get_figure(model_t &dst, const figure_t &figure)
 {
-    return figure_copy(dst, figure);
+    int points_count;
+    int rc = get_points_count(points_count, figure);
+    point_2D_t *point_array = NULL;
+    if (points_count != 0)
+    {
+        point_array = (point_2D_t*)malloc(points_count * sizeof(point_2D_t));
+        if (point_array == NULL)
+            return MALLOC_ERROR;
+    }
+    for (int i = 0; i < points_count && rc == SUCCESS; i++)
+    {
+        point_3D_t curr_point;
+        rc = get_by_ind_point_array(curr_point, i, figure.points);
+        rc = rc == SUCCESS ? point_2D_from_point_3D(point_array[i], curr_point): rc;
+    }
+    if (rc == SUCCESS)
+    {
+        dst.point_array = point_array;
+        rc = copy_matrix(dst.links, figure.links);
+        if (rc == SUCCESS)
+        {
+            dst.point_counts = points_count;
+        }
+    }
+    return rc;
 }
 
 int load_figure(figure_t &figure, char *file_path)

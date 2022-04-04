@@ -18,6 +18,7 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     matrix.cpp \
+    point2d.cpp \
     point3d.cpp \
     point_array.cpp
 
@@ -31,6 +32,7 @@ HEADERS += \
     inputLoader.h \
     mainwindow.h \
     matrix.h \
+    point2d.h \
     point3d.h \
     point_array.h
 

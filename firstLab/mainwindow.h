@@ -2,8 +2,18 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include "matrix.h"
+#include "point2d.h"
 
-#define FILE_PATH "/home/chel/2022/University/OOP/lab_01/firstLab/test.txt"
+#define FILE_PATH "D:\\VUZ\\OOP\\lab_01_\\OOP\\firstLab\\test.txt"
+
+
+typedef struct model
+{
+    point_2D_t *point_array;
+    matrix_t links;
+    int point_counts;
+} model_t;
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
